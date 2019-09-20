@@ -5,7 +5,8 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/animate.css">
+    <link rel="stylesheet" href="/styles/home.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -14,11 +15,16 @@
   <body>
     <% include partials/_header.ejs %>
     <div id='main-page'>
-      <img class='main-img' src=''/>
+      <div class='img-left'>
+        <img class='main-img animated bounceInLeft slow'src='../assets/img/burger.png'/>
+      </div>
       <div id="main-info">
-        <h1>Use Sprig please D:</h1>
+        <h1>Find restaurants you love</h1>
         <% include partials/_form.ejs %>
       </div>
+      <div class='img-right'>
+          <img class='main-img animated bounceInRight slow' id='right' src='../assets/img/nacho.png'/>
+        </div>
     </div>
   </body>
 </html>
