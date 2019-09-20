@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const helpers = require('../public/scripts/helpers');
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -13,21 +12,20 @@ router.use(cookieSession({
 }));
 
 module.exports = (db) => {
-
   // Data object to be passed into EJS
   let data = {
     user: '',
     errorMessage: false
   };
 
-  // @route   GET /register
-  // @ desc   Render register page
+  // @route   GET /login
+  // @ desc   Render login page
   router.get('/', (req, res) => {
-    res.render('/register', data);
+    res.render('/login', data);
   });
 
-  // @route   POST /register
-  // @ desc   Send user data through register page
+  // @route   POST /login
+  // @ desc   Send user data through login page
   router.post('/', (req, res) => {
     // Checking if forms are filled out
     let emptyField = req.body.email.length === 0 || req.body.password.length === 0 ? true : false;
@@ -36,29 +34,26 @@ module.exports = (db) => {
       // Should update this to send error message instead D:"
       res.status(400).send('One or both of the email or password fields is/are empty!');
     } else {
-      // Generating credentials
-      const userId = helpers.generateRandomId();
-      const password = bcrypt.hashSync(req.body.password, 10);
-      const defaultImage = req.body.image_url ? req.body.image_url : 'https://cdn.onlinewebfonts.com/svg/img_365985.png';
-
       // Sanitizing inputs
-      const query = `INSERT INTO users(id, name, email, password, phone_number, image_url)
-                        VALUES($1, $2, $3, $4, $5, $6, $7)
-                        RETURNING *
+      const query = `SELECT * FROM users
+                     WHERE users.id = $1
+                     LIMIT 1
                         `;
-      const values = [userId, req.body.name, req.body.email, password, req.body.phone_number, defaultImage];
+      const values = [req.body.username];
 
       db
         .query(query, values)
         .then(res => {
-          console.log(res);
-          data.user = res.rows[0].name;
-          res.render('/', data);
+          if (bcrypt.compareSync(req.body.password, res.rows.password)) {
+            req.session.user_id = res.rows.id;
+            data.user = res.rows.name
+            res.render('/browse', data);
+          }
         })
         .catch(err => {
           console.error(err);
           data.errorMessage = true;
-          res.render('/', data);
+          res.render('/login', data);
         });
     }
   });
