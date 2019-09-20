@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>Sprig</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -12,6 +12,13 @@
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <% include partials/_header.ejs %>
+    <div id='main-page'>
+      <img class='main-img' src=''/>
+      <div id="main-info">
+        <h1>Use Sprig please D:</h1>
+        <% include partials/_form.ejs %>
+      </div>
+    </div>
   </body>
 </html>
