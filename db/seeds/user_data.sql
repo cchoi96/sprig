@@ -1,4 +1,4 @@
-INSERT INTO users (user_id, name, email, password, phone_number)
+INSERT INTO users (id, name, email, password, phone_number)
 VALUES
 (
   'AAAAAA',
