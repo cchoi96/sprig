@@ -9,14 +9,24 @@ router.use(cookieSession({
   keys: ["id"]
 }));
 
+
+
 module.exports = (db) => {
+
+  let data = {
+    user: '',
+    erroMessage: false
+  }
   router.get("/", (req, res) => {
+    let query = `SELECT * FROM users WHERE id = $1 LIMIT 1`;
+    let values = [req.session.user_id];
     db
-      .query(`SELECT name FROM users WHERE ${req.session.user_id} = id LIMIT 1`)
-      .then(res => {
-        let data = {
-          user: res.rows[0].name
-        }
+      .query(query, values)
+      .then(user => {
+        let response = user.rows[0];
+        console.log(req.session.user_id);
+        data.user = response.name;
+        data.email = response.email;
         res.render('home', data);
       })
       .catch(err => {

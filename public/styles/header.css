@@ -97,6 +97,7 @@ body, html {
 }
 
 #userID-container {
+  margin-top: -32px;
   text-align: center;
 }
 

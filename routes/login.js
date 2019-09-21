@@ -45,12 +45,10 @@ module.exports = (db) => {
         .query(query, values)
         .then(res => {
           let response = res.rows[0];
-          console.log(response.id);
           if (bcrypt.compareSync(req.body.password, response.password)) {
-            console.log("hello");
             req.session.user_id = response.id;
-            console.log(req.session.user_id);
             data.user = response.name;
+            data.email = response.email;
             res.render('browse', data);
           }
         })
