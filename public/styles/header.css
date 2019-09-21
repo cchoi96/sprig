@@ -1,0 +1,188 @@
+body, html {
+  font-family: 'Raleway', sans-serif;
+  height: 100%;
+  margin: 0 auto;
+  width: 95%;
+  color: #343a40;
+}
+
+.container {
+  padding: 20px 0 20px 0;
+  display: flex;
+  border-bottom: 1px solid #343a40;
+  overflow: hidden;
+}
+
+.container a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container a:hover {
+  color: #68d391;
+}
+
+.container li {
+  font-size: 1.1em;
+  padding: 20px 10px 15px 10px;
+  list-style-type: none;
+  transition: 0.2s ease-out;
+  color: #343a40;
+}
+
+.container li:hover {
+  transform: scale(1.1);
+}
+
+.container li > a {
+  position: relative;
+  color: #343a40;
+  text-decoration: none;
+}
+
+.container li > a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #68d391;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.25s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
+}
+
+.container li > a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+#logo-link {
+  padding: 0 30px 0 0;
+  font-size: 3em;
+  transition: 0.1s ease-out;
+  color: #68d391;
+}
+
+#logo-link:hover {
+  color: #A5A4A4;
+}
+
+#end-status {
+  display: flex;
+  flex-direction: row;
+}
+
+#end {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+
+#end button {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1em;
+  border: none;
+  color: #343a40;
+  background-color: inherit;
+}
+
+#end button:hover {
+  cursor: pointer;
+  color: #68d391;
+}
+
+#userID-container {
+  text-align: center;
+}
+
+#userID {
+  display: inline-block;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: 10px 10px 10px 10px;
+  color: #f8f9fa;
+  background-color: #68d391;
+}
+
+/* Need to do this again just for buttons without anchor tags :( */
+form > button {
+  position: relative;
+  color: #343a40;
+  text-decoration: none;
+}
+
+form > button:hover {
+  color: #343a40;
+}
+
+form > .hover:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #68d391;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.25s ease-in-out 0s;
+  transition: all 0.25s ease-in-out 0s;
+}
+
+form > .hover:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+#hamburger {
+  font-family: 'FontAwesome';
+  font-style: normal;
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #responsive {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #create-url, #my-urls {
+    max-width: 175px;
+    margin-left: auto;
+  }
+
+  .hamburger-item {
+    display: none;
+  }
+
+  #hamburger {
+    font-size: 2em;
+    color: #343a40;
+    display: initial;
+    position: absolute;
+    cursor: pointer;
+    right: 7%;
+    top: 5%;
+    transition: 0.2s ease-out;
+  }
+
+  #hamburger:hover {
+    color: #68d391;
+    transform: scale(1.1);
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+}

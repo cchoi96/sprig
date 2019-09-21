@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.search {
+  font-family: 'Open Sans', sans-serif;
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #68d391;
+  border-right: none;
+  padding: 5px;
+  height: 35.5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus {
+  color: #68d391;
+}
+
+.searchButton {
+  width: 40px;
+  height: 29px;
+  margin-top: 3px;
+  border: 1px solid #FFFFFF;
+  background: #68d391;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
