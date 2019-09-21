@@ -2,7 +2,7 @@ const db = require('../../db')
 
 const queryAllUsers = () => {
   const queryString = 'SELECT * FROM users';
-  db.query(queryString)
+  return db.query(queryString)
   .then((res) => console.log(res.rows))
   .catch((err) => console.error(err));
 };
@@ -20,7 +20,7 @@ exports.queryUserByEmail = queryUserByEmail;
 
 const queryUserById = (id) => {
   const queryString = `SELECT * FROM users WHERE id = $1`;
-  db.query(queryString, [id])
+  return db.query(queryString, [id])
   .then((res) => res.rows)
   .catch((err) => console.error(err));
 }
@@ -30,7 +30,7 @@ exports.queryUserById = queryUserById;
 // Takes a restaurant id, returning all items in that restaurant's menu.
 const getMenuItems = (restaurant_id) => {
   const queryString = `SELECT * FROM menu_items WHERE restaurant_id = $1`;
-  db.query(queryString, [restaurant_id])
+  return db.query(queryString, [restaurant_id])
   .then((res) => res.rows)
   .catch((err) => console.error(err));
 }
