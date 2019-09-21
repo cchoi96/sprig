@@ -57,7 +57,7 @@ CREATE TABLE menu_items (
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   name VARCHAR(255) NOT NULL,
   -- do this in integers, convert on render
-  cost INTEGER NOT NULL,
+  cost_in_cents INTEGER NOT NULL,
   is_available BOOLEAN NOT NULL
 );
 
@@ -71,11 +71,14 @@ CREATE TABLE order_items (
 
 -- permissions on db
 GRANT ALL PRIVILEGES ON reviews TO PUBLIC;
+GRANT ALL PRIVILEGES ON reviews_id_seq TO PUBLIC;
 GRANT ALL PRIVILEGES ON restaurants TO PUBLIC;
+GRANT ALL PRIVILEGES ON restaurants_id_seq TO PUBLIC;
 GRANT ALL PRIVILEGES ON users to PUBLIC;
 GRANT ALL PRIVILEGES ON orders TO PUBLIC;
 GRANT ALL PRIVILEGES ON orders_id_seq TO PUBLIC;
 GRANT ALL PRIVILEGES ON order_items TO PUBLIC;
 GRANT ALL PRIVILEGES ON order_items_id_seq TO PUBLIC;
 GRANT ALL PRIVILEGES ON menu_items TO PUBLIC;
+GRANT ALL PRIVILEGES ON menu_items_id_seq TO PUBLIC;
 
