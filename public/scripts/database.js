@@ -11,8 +11,8 @@ exports.queryAllUsers = queryAllUsers;
 
 const queryUserByEmail = (email) => {
   const queryString = `SELECT * FROM users WHERE email = $1`;
-  db.query(queryString, [email])
-  .then((res) => res.rows)
+  return db.query(queryString, [email])
+  .then((res) => res.rows[0])
   .catch((err) => console.error(err));
 };
 
