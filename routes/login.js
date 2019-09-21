@@ -21,7 +21,7 @@ module.exports = (db) => {
   // @route   GET /login
   // @ desc   Render login page
   router.get('/', (req, res) => {
-    res.render('/login', data);
+    res.render('login', data);
   });
 
   // @route   POST /login

@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
+const axios = require('axios');
 // --------------------------------------------------------------------------------------------------------------------
 
 router.use(cookieSession({
@@ -26,5 +27,12 @@ module.exports = (db) => {
         res.render('home', data);
       })
   });
+
+  router.post('/', (req, res) => {
+    // const searchQuery = res.body.searchquery;
+    // const googleSearchQuery = searchQuery.replace(/ /g, '+');
+    // const apiKey = process.env.MAPS_API_KEY;
+  });
+
   return router;
 };

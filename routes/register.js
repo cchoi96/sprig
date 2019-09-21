@@ -23,7 +23,7 @@ module.exports = (db) => {
   // @route   GET /register
   // @ desc   Render register page
   router.get('/', (req, res) => {
-    res.render('/register', data);
+    res.render('register', data);
   });
 
   // @route   POST /register
