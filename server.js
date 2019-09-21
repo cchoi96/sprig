@@ -42,6 +42,7 @@ const user = require('./routes/user');
 // Note: Feel free to replace the example routes below with your own
 app.use("/", home(db));
 app.use("/register", register(db));
+app.use("/login", login(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
