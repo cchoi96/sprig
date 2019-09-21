@@ -10,6 +10,9 @@
 
 <body>
   <% include partials/_header %>
+  <% if (error.loginError) { %>
+    <% include partials/_login-error.ejs %>
+  <% } %>
   <main>
     <h3 id="title">Login</h3>
     <div>

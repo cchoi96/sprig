@@ -15,7 +15,10 @@ module.exports = (db) => {
   // Data object to be passed into EJS
   let data = {
     user: '',
-    errorMessage: false
+    error: {
+      registerError: false,
+      loginError: false
+    }
   };
 
   // @route   GET /login
@@ -45,16 +48,21 @@ module.exports = (db) => {
         .query(query, values)
         .then(res => {
           let response = res.rows[0];
-          if (bcrypt.compareSync(req.body.password, response.password)) {
+          if (response && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
             data.user = response.name;
             data.email = response.email;
+            data.error.loginError = false;
             res.render('browse', data);
+          } else {
+            data.error.loginError = true;
+            res.render('login', data);
           }
+
         })
         .catch(err => {
           console.error(err);
-          data.errorMessage = true;
+          data.error.loginError = true;
           res.render('login', data);
         });
     }

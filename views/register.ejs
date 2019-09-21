@@ -14,12 +14,19 @@
 
 <body>
   <% include partials/_header.ejs %>
+  <% if (error.registerError) { %>
+    <% include partials/_register-error.ejs %>
+  <% } %>
   <main>
     <h3 id="title">Register</h3>
     <div>
       <form method="POST" action="/register" id='register-form'>
+        <input type="text" name="name" placeholder="Name" class="form-control" />
         <input type="email" name="email" placeholder="Email Address" />
         <input type="password" name="password" placeholder="Password" class="form-control" />
+        <input type="number" name="phone_number" placeholder="Phone Number" class="form-control" />
+        <label for="file-upload">Profile Picture</label>
+        <input type="file" name="image_url" placeholder="Profile Picture" id="file-upload"/>
         <button type="submit">Register</button>
       </form>
     </div>

@@ -1,5 +1,5 @@
 // 1. Generates the short URL, 6 characters long
-const generateRandomString = () => {
+const generateRandomId = () => {
   let string = '';
   const length = 6;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -11,5 +11,5 @@ const generateRandomString = () => {
 };
 
 module.exports = {
-  generateRandomString
+  generateRandomId
 };

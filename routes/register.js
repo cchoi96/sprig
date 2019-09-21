@@ -17,7 +17,10 @@ module.exports = (db) => {
   // Data object to be passed into EJS
   let data = {
     user: '',
-    errorMessage: false
+    error: {
+      registerError: false,
+      loginError: false
+    }
   };
 
   // @route   GET /register
@@ -42,23 +45,35 @@ module.exports = (db) => {
       const defaultImage = req.body.image_url ? req.body.image_url : 'https://cdn.onlinewebfonts.com/svg/img_365985.png';
 
       // Sanitizing inputs
-      const query = `INSERT INTO users(id, name, email, password, phone_number, image_url)
-                        VALUES($1, $2, $3, $4, $5, $6, $7)
+      const queryEmail = 'SELECT * FROM users WHERE email = $1';
+      const insertUser = `INSERT INTO users(id, name, email, password, phone_number, image_url)
+                        VALUES($1, $2, $3, $4, $5, $6)
                         RETURNING *
                         `;
-      const values = [userId, req.body.name, req.body.email, password, req.body.phone_number, defaultImage];
+      const emailValue = [req.body.email];
+      const userValue = [userId, req.body.name, req.body.email, password, req.body.phone_number, defaultImage];
 
       db
-        .query(query, values)
+        .query(queryEmail, emailValue)
         .then(res => {
-          console.log(res);
-          data.user = res.rows[0].name;
-          res.render('/', data);
+          return res.rows.length === 0 ? db.query(insertUser, userValue) : null;
+        })
+        .then(newUser => {
+          if (newUser === null) {
+            data.error.registerError = true;
+            console.log(data);
+            res.render('register', data);
+          } else {
+            let response = newUser.rows[0];
+            data.user = response.name;
+            data.email = response.email;
+            res.render('home', data);
+          }
         })
         .catch(err => {
           console.error(err);
-          data.errorMessage = true;
-          res.render('/', data);
+          data.
+          res.render('home', data);
         });
     }
   });

@@ -1,0 +1,12 @@
+#error {
+  text-align: center;
+  width: 35%;
+  margin: 0 auto;
+}
+
+#error h5 {
+  border-radius: 7px;
+  padding: 5px 7px 5px 7px;
+  color: #f8f9fa;
+  background-color: #dc3545;
+}
