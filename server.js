@@ -35,13 +35,13 @@ app.use(express.static("public"));
 const home = require('./routes/home');
 const login = require('./routes/login');
 const register = require('./routes/register');
-// const order = require('./routes/order');
-// const usersRoutes = require("./routes/users");
+const browse = require('./routes/browse.js');
+const user = require('./routes/user');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/", home(db));
-
+app.use("/register", register(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
