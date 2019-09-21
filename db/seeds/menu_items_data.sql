@@ -1,4 +1,4 @@
-INSERT INTO menu_items (restaurant_id, name, cost, is_available)
+INSERT INTO menu_items (restaurant_id, name, cost_in_cents, is_available)
 VALUES
 (
   1,

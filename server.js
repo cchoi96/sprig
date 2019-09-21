@@ -40,9 +40,9 @@ const user = require('./routes/user');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/", home(db));
-app.use("/register", register(db));
 app.use("/login", login(db));
+app.use("/register", register(db));
+app.use("/", home(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!

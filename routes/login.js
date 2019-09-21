@@ -36,24 +36,28 @@ module.exports = (db) => {
     } else {
       // Sanitizing inputs
       const query = `SELECT * FROM users
-                     WHERE users.id = $1
+                     WHERE users.email = $1
                      LIMIT 1
                         `;
-      const values = [req.body.username];
+      const values = [req.body.email];
 
       db
         .query(query, values)
         .then(res => {
-          if (bcrypt.compareSync(req.body.password, res.rows.password)) {
-            req.session.user_id = res.rows.id;
-            data.user = res.rows.name
-            res.render('/browse', data);
+          let response = res.rows[0];
+          console.log(response.id);
+          if (bcrypt.compareSync(req.body.password, response.password)) {
+            console.log("hello");
+            req.session.user_id = response.id;
+            console.log(req.session.user_id);
+            data.user = response.name;
+            res.render('browse', data);
           }
         })
         .catch(err => {
           console.error(err);
           data.errorMessage = true;
-          res.render('/login', data);
+          res.render('login', data);
         });
     }
   });
