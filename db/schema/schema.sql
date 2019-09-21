@@ -69,3 +69,9 @@ CREATE TABLE order_items (
   time_prepared TIMESTAMP DEFAULT NULL
 );
 
+GRANT ALL PRIVILEGES ON reviews TO labber;
+GRANT ALL PRIVILEGES ON restaurants TO labber;
+GRANT ALL PRIVILEGES ON users to labber;
+GRANT ALL PRIVILEGES ON orders TO labber;
+GRANT ALL PRIVILEGES ON order_items TO labber;
+GRANT ALL PRIVILEGES ON menu_items to labber;
