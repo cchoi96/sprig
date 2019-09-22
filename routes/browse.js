@@ -15,8 +15,31 @@ module.exports = (db) => {
   let data = {
     user: '',
     error: {},
-    restaurants: ''
+    restaurants: '',
+    restaurant: ''
   };
+
+  // @route   GET /browse/:restaurant_id
+  // @ desc   Render browse page for individual restaurant
+  router.get('/:restaurant_id', (req, res) => {
+    // Can run into issues if the restaurant name has a - in it.
+    const restaurantName = req.params.restaurant_id.split('-').join(' ');
+    const query = `SELECT * 
+                   FROM restaurants
+                   JOIN menu_items ON restaurants.id = menu_items.restaurant_id
+                   WHERE restaurants.name LIKE $1`;
+    const values = [restaurantName];
+    db
+      .query(query, values)
+      .then(restaurantData => {
+        const restaurantInfo = restaurantData.rows;
+        data.restaurant = restaurantInfo;
+        res.render('individual_restaurant', data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 
   // @route   GET /browse
   // @ desc   Render browse page
