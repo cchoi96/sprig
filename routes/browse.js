@@ -14,13 +14,22 @@ module.exports = (db) => {
   // Data object to be passed into EJS
   let data = {
     user: '',
-    errorMessage: false
+    error: {},
+    restaurants: ''
   };
 
   // @route   GET /browse
   // @ desc   Render browse page
   router.get('/', (req, res) => {
-    res.render('/browse', data);
+    const query = `SELECT * FROM restaurants`;
+    db
+      .query(query)
+      .then(restaurantData => {
+        console.log(restaurantData.rows);
+        data.restaurants = restaurantData.rows;
+        res.render('browse', data);
+      })
+      .catch(err => console.log(err));
   });
 
   // @route   POST /browse

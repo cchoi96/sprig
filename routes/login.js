@@ -46,9 +46,10 @@ module.exports = (db) => {
 
       db
         .query(query, values)
-        .then(res => {
-          let response = res.rows[0];
-          if (response && bcrypt.compareSync(req.body.password, response.password)) {
+        .then(userInfo => {
+          console.log(userInfo.rows[0]);
+          let response = userInfo.rows[0];
+          if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
             data.user = response.name;
             data.email = response.email;

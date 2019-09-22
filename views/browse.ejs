@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/animate.css">
-  <link rel="stylesheet" href="/styles/home.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/browse.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -15,8 +15,30 @@
 
 <body>
   <% include partials/_header.ejs %>
-  <div id='main-page'>
-    HELLO
+  <% include partials/_form.ejs %>
+  <div class='browse'>
+    <div id="browse-section">
+      <h2>Browse</h1>
+        <div id='restaurants-list'>
+          <ul>
+            <% for (let restaurant of restaurants) { %>
+              <% let restaurantUrl = restaurant.name.split(' ').join('-').toLowerCase();
+                 console.log(restaurantUrl); %>
+              <a href="/browse/<%= restaurantUrl %>">
+                <li>
+                    <h3><%= restaurant.name %></h3>
+                    <p><%= restaurant.type %></p>
+                    <p><%= restaurant.location %></p>
+                    <p><%= restaurant.phone %></p>
+                  </li>
+              </a>
+            <% } %>
+          </ul>
+        </div>
+    </div>
+    <div id='browse-map-section'>
+      Map
+    </div>
   </div>
 </body>
 
