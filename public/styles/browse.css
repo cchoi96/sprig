@@ -1,0 +1,15 @@
+.browse {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+}
+
+#browse-section {
+  width: 30%;
+  border: 1px solid black;
+}
+
+#browse-map-section {
+  width: 70%;
+  border: 1px solid red;
+}

@@ -44,6 +44,7 @@ const user = require('./routes/user');
 app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
+app.use("/browse", browse(db));
 app.use("/", home(db));
 
 app.listen(PORT, () => {
