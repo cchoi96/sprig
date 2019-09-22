@@ -24,7 +24,7 @@ module.exports = (db) => {
   router.get('/:restaurant_id', (req, res) => {
     // Can run into issues if the restaurant name has a - in it.
     const restaurantName = req.params.restaurant_id.split('-').join(' ');
-    const query = `SELECT * 
+    const query = `SELECT *
                    FROM restaurants
                    JOIN menu_items ON restaurants.id = menu_items.restaurant_id
                    WHERE restaurants.name LIKE $1`;
@@ -44,9 +44,6 @@ module.exports = (db) => {
   // @route   GET /browse
   // @ desc   Render browse page
   router.get('/', (req, res) => {
-<<<<<<< HEAD
-    res.render('browse', data);
-=======
     const query = `SELECT * FROM restaurants`;
     db
       .query(query)
@@ -56,7 +53,6 @@ module.exports = (db) => {
         res.render('browse', data);
       })
       .catch(err => console.log(err));
->>>>>>> 1d6aeac982aa8c8479993ad5c0652af16628ecf2
   });
 
   // @route   POST /browse
