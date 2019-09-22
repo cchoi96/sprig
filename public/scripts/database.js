@@ -1,31 +1,38 @@
 const db = require('../../db')
 
-const queryAllUsers = () => {
+// getAllUsers
+// Returns all users.
+const getAllUsers = () => {
   const queryString = 'SELECT * FROM users';
   return db.query(queryString)
   .then((res) => console.log(res.rows))
   .catch((err) => console.error(err));
 };
 
-exports.queryAllUsers = queryAllUsers;
+exports.getAllUsers = getAllUsers;
 
-const queryUserByEmail = (email) => {
+// Gets a user by email
+// Used in the login and register routes.
+const getUserByEmail = (email) => {
   const queryString = `SELECT * FROM users WHERE email = $1`;
   return db.query(queryString, [email])
   .then((res) => res.rows[0])
   .catch((err) => console.error(err));
 };
 
-exports.queryUserByEmail = queryUserByEmail;
+exports.getUserByEmail = getUserByEmail;
 
-const queryUserById = (id) => {
+// getUserById
+// Gets a user by id
+// Used to check persistency of login connection, among other things
+const getUserById = (id) => {
   const queryString = `SELECT * FROM users WHERE id = $1`;
   return db.query(queryString, [id])
   .then((res) => res.rows)
   .catch((err) => console.error(err));
 }
 
-exports.queryUserById = queryUserById;
+exports.getUserById = getUserById;
 
 // Takes a restaurant id, returning all items in that restaurant's menu.
 const getMenuItems = (restaurant_id) => {
@@ -74,3 +81,15 @@ const addItemToOrder = (order_id, menu_item_id, quantity) => {
 }
 
 exports.addItemToOrder = addItemToOrder;
+
+const getOrderById = (order_id) => {
+  const queryString = `
+  SELECT * FROM orders WHERE id = $1
+  `;
+  const queryParams = [order_id];
+  return db.query(queryString, queryParams)
+  .then((res) => res.rows[0])
+  .catch((err) => console.error(err));
+}
+
+exports.getOrderById = getOrderById;

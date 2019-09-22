@@ -20,7 +20,7 @@ module.exports = (db) => {
   // @route   GET /browse
   // @ desc   Render browse page
   router.get('/', (req, res) => {
-    res.render('/browse', data);
+    res.render('browse', data);
   });
 
   // @route   POST /browse
@@ -46,13 +46,13 @@ module.exports = (db) => {
           if (bcrypt.compareSync(req.body.password, res.rows.password)) {
             req.session.user_id = res.rows.id;
             data.user = res.rows.name
-            res.render('/browse', data);
+            res.render('browse', data);
           }
         })
         .catch(err => {
           console.error(err);
           data.errorMessage = true;
-          res.render('/browse', data);
+          res.render('browse', data);
         });
     }
   });
