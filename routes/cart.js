@@ -27,7 +27,6 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
-<<<<<<< HEAD
     const orderInformation = JSON.parse(req.body.orderInfo);
     const messages = {};
     const outboundMessages = [];
@@ -54,17 +53,6 @@ module.exports = (db) => {
       })
     )
     .then(message => console.log(message.sid));
-=======
-  const data = JSON.parse(req.body.orderInfo);
-  console.log(data);
-  console.log(req.body);
-    // client.messages.create({
-   //   body: 'POST /cart',
-   //   from: '+16474907450',
-   //   to: '+16476378535'
-   // })
-   // .then((message) => console.log(message.sid));
->>>>>>> 6cf45757a2c1b5c45e5a02766cefd9d113d061e8
   });
 
   return router;
