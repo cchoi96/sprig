@@ -13,6 +13,7 @@ router.use(cookieSession({
 
 module.exports = (db) => {
   router.post('/', (req, res) => {
+    const twiml = new MessagingResponse();
     // req.body.Body for the Twilio message body.
     // console.log(req.body.Body);
 
@@ -22,8 +23,6 @@ module.exports = (db) => {
     db.query(queryString, [req.body.Body])
     .then(result => {
       let message = `Result: ${result.rows[0].name}`;
-      console.log(message);
-      const twiml = new MessagingResponse();
       twiml.message(message);
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
