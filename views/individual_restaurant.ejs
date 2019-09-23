@@ -25,6 +25,7 @@
             <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>'/>
             <input type='hidden' name='item' value='<%= restaurantItem.name %>'/>
             <h4><%= restaurantItem.name %></h4></input>
+            <p><%= restaurantItem.description %></p>
             <p>$<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %></p>
             <div class='iterator'>
               <button class='minus' disabled="disabled">-</button>
