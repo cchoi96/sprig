@@ -54,10 +54,10 @@ module.exports = (db) => {
             data.user = response.name;
             data.email = response.email;
             data.error.loginError = false;
-            res.render('browse', data);
+            res.redirect('/browse');
           } else {
             data.error.loginError = true;
-            res.render('login', data);
+            res.render('browse');
           }
 
         })

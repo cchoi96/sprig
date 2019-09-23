@@ -13,23 +13,29 @@
   <% include partials/_header %>
   <main>
     <div>
-      <h1>Restaurant Name</h1>
+      <h1 id='restaurantName'><%= restaurantName %></h1>
     </div>
     <div class="menu">
       <h3>Menu</h3>
-      <ul>
+      <form method="POST" action="/browse/<%= restaurantUrlName %>">
+        <input type='hidden' name='restaurantName' value='<%= restaurantName %>'/>
+        <ul>
         <% for (restaurantItem of restaurant) { %>
           <li>
+            <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>'/>
+            <input type='hidden' name='item' value='<%= restaurantItem.name %>'/>
             <h4><%= restaurantItem.name %></h4></input>
             <p>$<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %></p>
             <div class='iterator'>
               <button class='minus' disabled="disabled">-</button>
-              <input type='number' value='0' min='0' class='menu-item-input'/>
+              <input type='number' value='0' min='0' name='quantity' class='menu-item-input'/>
               <button class='plus'>+</button>
             </div>
           </li>
-        <% } %>
-      </ul>
+            <% } %>
+          </ul>
+          <button id='submit' type="submit" value="submit">Submit</button>
+      </form>
     </div>
   </main>
 
