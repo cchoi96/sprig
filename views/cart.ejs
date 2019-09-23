@@ -22,7 +22,6 @@
   </li>
   <% } %>
   <% } %>
-  <!-- ----------------------------------------------------------------------------- -->
 
   <main>
     <h1>Cart</h1>
@@ -40,7 +39,6 @@
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
 <!-- Order Rendering Script -->
-<<<<<<< HEAD
 <script>
   let restaurantName = document.getElementById('restaurantName').innerHTML;
   let orderItems = document.getElementsByClassName('order-items');
@@ -48,8 +46,8 @@
   let quantities = document.getElementsByClassName('quantity-items');
   let cartInfo = document.getElementById('form');
 
-  // Checks if localStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
-  if (!localStorage.orderObj) {
+  // Checks if sessionStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
+  if (!sessionStorage.orderObj) {
     let orderObj = {};
     orderObj[restaurantName] = {};
     for (let i = 0; i < orderItems.length; i++) {
@@ -57,10 +55,10 @@
         price: prices[i].innerHTML,
         quantity: quantities[i].innerHTML
       };
-      localStorage.setItem('orderObj', JSON.stringify(orderObj));
+      sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
     }
   } else {
-    let orderObj = JSON.parse(localStorage.orderObj);
+    let orderObj = JSON.parse(sessionStorage.orderObj);
     orderObj[restaurantName] = {};
     for (let i = 0; i < orderItems.length; i++) {
       orderObj[restaurantName][orderItems[i].innerHTML] = {
@@ -68,12 +66,12 @@
         quantity: quantities[i].innerHTML
       };
     }
-    localStorage.setItem('orderObj', JSON.stringify(orderObj));
+    sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
   }
 
   // Setting the innerHTML for the cart page
   // Creating an array of keys for each layer of the object, then rendering to screen
-  let combinedOrder = JSON.parse(localStorage.orderObj);
+  let combinedOrder = JSON.parse(sessionStorage.orderObj);
   let combinedOrderKeys = Object.keys(combinedOrder);
 
   for (let key of combinedOrderKeys) {
@@ -86,9 +84,9 @@
       $('#form').append(`<li>${restaurantKey}</li>`);
       $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
       $('#form').append(`<li>${combinedOrder[key][restaurantKey].quantity}</li>`);
-      total += Number(combinedOrder[key][restaurantKey].price);
+      total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key][restaurantKey].quantity);
     }
-    $('#form').append(`<li>${total}</li>`);
+    $('#form').append(`<li>${total.toFixed(2)}</li>`);
     $('#form').append('</ul>');
   }
 
@@ -96,8 +94,5 @@
   $('#form').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
 
 </script>
-=======
-<script type="text/javascript" src="/scripts/checkout.js"></script>
->>>>>>> 6cf45757a2c1b5c45e5a02766cefd9d113d061e8
 
 </html>

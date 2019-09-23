@@ -4,8 +4,8 @@ let prices = document.getElementsByClassName('price-items');
 let quantities = document.getElementsByClassName('quantity-items');
 let cartInfo = document.getElementById('form');
 
-// Checks if localStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
-if (!localStorage.orderObj) {
+// Checks if sessionStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
+if (!sessionStorage.orderObj) {
   let orderObj = {};
   orderObj[restaurantName] = {};
   for (let i = 0; i < orderItems.length; i++) {
@@ -13,10 +13,10 @@ if (!localStorage.orderObj) {
       price: prices[i].innerHTML,
       quantity: quantities[i].innerHTML
     };
-    localStorage.setItem('orderObj', JSON.stringify(orderObj));
+    sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
   }
 } else {
-  let orderObj = JSON.parse(localStorage.orderObj);
+  let orderObj = JSON.parse(sessionStorage.orderObj);
   orderObj[restaurantName] = {};
   for (let i = 0; i < orderItems.length; i++) {
     orderObj[restaurantName][orderItems[i].innerHTML] = {
@@ -24,12 +24,14 @@ if (!localStorage.orderObj) {
       quantity: quantities[i].innerHTML
     };
   }
-  localStorage.setItem('orderObj', JSON.stringify(orderObj));
+  sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
 }
+
+localStorage.clear();
 
 // Setting the innerHTML for the cart page
 // Creating an array of keys for each layer of the object, then rendering to screen
-let combinedOrder = JSON.parse(localStorage.orderObj);
+let combinedOrder = JSON.parse(sessionStorage.orderObj);
 let combinedOrderKeys = Object.keys(combinedOrder);
 
 for (let key of combinedOrderKeys) {
