@@ -44,13 +44,7 @@ module.exports = (db) => {
                      LIMIT 1
                         `;
       const getUserValues = [req.body.email];
-      const getRestaurantOwner = `SELECT * FROM restaurants
-                                  JOIN users ON restaurants.owner_id = users.id
-                                  JOIN menu_items ON menu_items.restaurant_id = restaurants.id
-                                  JOIN orders on orders.restaurant_id = restaurants.id
-                                  JOIN order_items ON order_items.order_id = orders.id
-                                  WHERE restaurants.owner_id = 'DDDDDD'
-                                  GROUP BY restaurants.id, users.id, menu_items.id, orders.id, order_items.id`
+      
       db
         .query(getUser, getUserValues)
         .then(userInfo => {
@@ -64,7 +58,7 @@ module.exports = (db) => {
             if (response.owns_restaurant === false) {
               res.redirect('/browse');
             } else {
-              res.redirect('/:restaurant_id');
+              res.redirect('/restaurant');
             }
           } else {
             data.error.loginError = true;
