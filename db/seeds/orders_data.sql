@@ -1,19 +1,22 @@
 -- order dummy data, set up the orders with some order items:
 
-INSERT INTO orders (customer_id, restaurant_id, time_created) VALUES
+INSERT INTO orders (customer_id, restaurant_id, sms_code, time_created) VALUES
 (
   'DDDDDD',
   3,
+  '1111',
   now()
 ),
 (
   'EEEEEE',
   2,
+  '1379',
   now()
 ),
 (
   'AAAAAA',
   1,
+  '1456',
   now()
 );
 

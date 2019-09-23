@@ -36,6 +36,7 @@ CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   customer_id VARCHAR(6) NOT NULL REFERENCES users(id),
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
+  sms_code VARCHAR(4) NOT NULL,
   time_created TIMESTAMP NOT NULL,
   picked_up BOOLEAN NOT NULL DEFAULT FALSE,
   time_fulfilled TIMESTAMP DEFAULT NULL,
