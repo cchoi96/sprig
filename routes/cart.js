@@ -4,7 +4,9 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const client = require('twilio')(accountSid, authToken);
+const { generateRandomSMSId } = require('../public/scripts/helpers');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -28,17 +30,20 @@ module.exports = (db) => {
   // @ desc   Search
   router.post('/', (req, res) => {
     const orderInformation = JSON.parse(req.body.orderInfo);
-    const messages = {};
+    const message = {};
     const outboundMessages = [];
+    // const insertOrderQuery = `INSERT INTO orders ()`
     for (key in orderInformation) {
       messages[key] = {};
       messages[key].body = `You have received a new order!\n`;
       // gonna have to get each individual # from the DB
       messages[key].number = `+16476378535`;
+      messages[key].sms_code = generateRandomSMSId();
+      let code = messages[key].sms_code;
       for (item in orderInformation[key]) {
         messages[key].body += `${orderInformation[key][item].quantity} ${item}\n`;
       }
-      messages[key].body += `Text YES to accept this order at a default time of 10 minutes,\nor YES <number> to accept this order at the time in minutes specified.`;
+      messages[key].body += `Text ${code} to accept this order at a default time of 10 minutes,\nor ${code} <number> to accept this order at the time in minutes specified.`;
       outboundMessages.push(messages[key]);
     }
     console.log(messages);
@@ -53,6 +58,10 @@ module.exports = (db) => {
       })
     )
     .then(message => console.log(message.sid));
+
+
+
+
   });
 
   return router;
