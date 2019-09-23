@@ -37,8 +37,8 @@ CREATE TABLE orders (
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   time_created TIMESTAMP NOT NULL,
   picked_up BOOLEAN NOT NULL DEFAULT FALSE,
-  -- optional notes to inform restaurant of anything specific/necessary to the order.
   time_fulfilled TIMESTAMP DEFAULT NULL,
+  -- optional notes to inform restaurant of anything specific/necessary to the order.
   notes TEXT
 );
 
@@ -56,6 +56,7 @@ CREATE TABLE menu_items (
   id SERIAL PRIMARY KEY,
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   name VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
   -- do this in integers, convert on render
   cost_in_cents INTEGER NOT NULL,
   is_available BOOLEAN NOT NULL
