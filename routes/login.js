@@ -39,16 +39,21 @@ module.exports = (db) => {
       res.status(400).send('One or both of the email or password fields is/are empty!');
     } else {
       // Sanitizing inputs
-      const query = `SELECT * FROM users
+      const getUser = `SELECT * FROM users
                      WHERE users.email = $1
                      LIMIT 1
                         `;
-      const values = [req.body.email];
-
+      const getUserValues = [req.body.email];
+      const getRestaurantOwner = `SELECT * FROM restaurants
+                                  JOIN users ON restaurants.owner_id = users.id
+                                  JOIN menu_items ON menu_items.restaurant_id = restaurants.id
+                                  JOIN orders on orders.restaurant_id = restaurants.id
+                                  JOIN order_items ON order_items.order_id = orders.id
+                                  WHERE restaurants.owner_id = 'DDDDDD'
+                                  GROUP BY restaurants.id, users.id, menu_items.id, orders.id, order_items.id`
       db
-        .query(query, values)
+        .query(getUser, getUserValues)
         .then(userInfo => {
-          console.log(userInfo.rows[0]);
           let response = userInfo.rows[0];
           if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
@@ -56,7 +61,11 @@ module.exports = (db) => {
             data.user = response.name;
             data.email = response.email;
             data.error.loginError = false;
-            res.redirect('/browse');
+            if (response.owns_restaurant === false) {
+              res.redirect('/browse');
+            } else {
+              res.redirect('/:restaurant_id');
+            }
           } else {
             data.error.loginError = true;
             res.render('browse');
