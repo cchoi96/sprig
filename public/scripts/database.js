@@ -5,7 +5,7 @@ const db = require('../../db')
 const getAllUsers = () => {
   const queryString = 'SELECT * FROM users';
   return db.query(queryString)
-  .then((res) => console.log(res.rows))
+  .then((res) => (res.rows))
   .catch((err) => console.error(err));
 };
 
@@ -61,10 +61,6 @@ const createOrder = (customer_id, restaurant_id) => {
 }
 
 exports.createOrder = createOrder;
-
-// createOrder('AAAAAA', 1)
-//   .then((row) => addItemToOrder(row.id, 1, 3))
-//   .then((row) => console.log(row));
 
 // Adds an individual item to the order. Takes the id from the
 // newly created order and adds to that.
