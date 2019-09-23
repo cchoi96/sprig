@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='/css/show.css' rel='stylesheet' type='text/css'>
-  <title>Short URL</title>
+  <title>Cart</title>
 </head>
 
 <body>
@@ -14,33 +14,38 @@
   <div id='restaurantName' style="display: none"><%= orderInfo.restaurantName %></div>
   <% include partials/_header %>
   <% for (let i = 0; i < orderInfo.item.length; i++){ %>
-    <% if (orderInfo.quantity[i] > 0) { %>
-    <li style="display: none;">
-      <p class='order-items'><%= orderInfo.item[i] %></p>
-      <p class='price-items'><%= orderInfo.cost[i] %></p>
-      <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
-    </li>
-    <% } %>
+  <% if (orderInfo.quantity[i] > 0) { %>
+  <li style="display: none;">
+    <p class='order-items'><%= orderInfo.item[i] %></p>
+    <p class='price-items'><%= orderInfo.cost[i] %></p>
+    <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
+  </li>
   <% } %>
+  <% } %>
+  <!-- ----------------------------------------------------------------------------- -->
 
   <main>
     <h1>Cart</h1>
-    <form>
-      <ul>
-        <div id='cart-buttons'>
-          <button><a href="/browse">Get More Food</a></button>
-          <button type='submit'>Place Order</button>
-        </div>
-      </ul>
+    <form method='POST' action='/cart' id='form'>
+      <div id='cart-buttons'>
+        <button><a href="/browse">Get More Food</a></button>
+        <button type='submit'>Place Order</button>
+      </div>
     </form>
   </main>
+
 </body>
 
+<!-- jQuery -->
+<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
+<!-- Order Rendering Script -->
 <script>
   let restaurantName = document.getElementById('restaurantName').innerHTML;
   let orderItems = document.getElementsByClassName('order-items');
   let prices = document.getElementsByClassName('price-items');
   let quantities = document.getElementsByClassName('quantity-items');
+  let cartInfo = document.getElementById('form');
 
   // Checks if localStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
   if (!localStorage.orderObj) {
@@ -52,7 +57,7 @@
         quantity: quantities[i].innerHTML
       };
       localStorage.setItem('orderObj', JSON.stringify(orderObj));
-    } 
+    }
   } else {
     let orderObj = JSON.parse(localStorage.orderObj);
     orderObj[restaurantName] = {};
@@ -65,9 +70,29 @@
     localStorage.setItem('orderObj', JSON.stringify(orderObj));
   }
 
-  let combinedOrderInformation = 
+  // Setting the innerHTML for the cart page
+  // Creating an array of keys for each layer of the object, then rendering to screen
+  let combinedOrder = JSON.parse(localStorage.orderObj);
+  let combinedOrderKeys = Object.keys(combinedOrder);
 
-  console.log(JSON.parse(localStorage.orderObj));
+  for (let key of combinedOrderKeys) {
+    let total = 0;
+    $('#form').append(`<h1>${key}</h1>`);
+    $('#form').append(`<ul>`)
+    let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
+    for (let restaurantKey of combinedRestaurantKeys) {
+      $('#form').append(`<li>${restaurantKey}</li>`);
+      $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
+      $('#form').append(`<li>${combinedOrder[key][restaurantKey].quantity}</li>`);
+      total += Number(combinedOrder[key][restaurantKey].price);
+    }
+    $('#form').append(`<li>${total}</li>`);
+    $('#form').append('</ul>');
+  }
+
+  // Sends info of the order to the confirmation page
+  $('#form').append(`<input type='hidden' name='orderInfo' value=${combinedOrder}`);
+
 </script>
 
 </html>
