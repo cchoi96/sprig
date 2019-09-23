@@ -17,7 +17,7 @@
     </div>
     <div class="menu">
       <h3>Menu</h3>
-      <form method="POST" action="/browse/<%= restaurantUrlName %>">
+      <form method="POST" action="/browse/cart">
         <input type='hidden' name='restaurantName' value='<%= restaurantName %>'/>
         <ul>
         <% for (restaurantItem of restaurant) { %>

@@ -36,16 +36,17 @@ const home = require('./routes/home');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const register = require('./routes/register');
+const restaurant = require('./routes/restaurant');
 const browse = require('./routes/browse.js');
 const cart = require('./routes/cart')
 const sms = require('./routes/sms');
-const user = require('./routes/user');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
+app.use('/restaurant', restaurant(db));
 app.use("/browse", browse(db));
 app.use("/cart", cart(db));
 app.use("/sms", sms(db));
