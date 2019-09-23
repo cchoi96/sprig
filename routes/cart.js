@@ -27,7 +27,8 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
-    console.log(req.body);
+    const data = JSON.parse(req.body.orderInfo);
+    console.log(data);
     // client.messages.create({
    //   body: 'POST /cart',
    //   from: '+16474907450',
