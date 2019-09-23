@@ -33,19 +33,17 @@ module.exports = (db) => {
         let restaurantArr = restaurant.rows;
         const restaurantObj = {};
 
-        for (let obj in restaurantArr) {
-          restaurantObj[restaurantArr[obj].order_id] = {};
-        }
+        for (let obj of restaurantArr) {
+          if (!restaurantObj[obj.order_id]) {
+            restaurantObj[obj.order_id] = {};
+          }
+          restaurantObj[obj.order_id][obj.name] = {
+            price: obj.cost_in_cents,
+            quantity: obj.quantity
+          };
 
-        for (let obj in restaurantArr) {
-          restaurantObj[restaurantArr[obj].name] = {};
         }
-
-        for (let obj in restaurantArr) {
-          restaurantObj[restaurantArr[obj].name].price = restaurantArr[obj].cost_in_cents;
-          restaurantObj[restaurantArr[obj].name].quantity = restaurantArr[obj].quantity;
-        }
-        console.log(restaurantObj);
+        data.restaurantObj = restaurantObj;
         res.render('restaurant', data);
       })
   });
