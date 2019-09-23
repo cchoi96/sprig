@@ -9,7 +9,33 @@
   border: 1px solid black;
 }
 
+#browse-section h2 {
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 30px;
+}
+
+#browse-section a {
+  text-decoration: none;
+}
+
+#browse-section ul {
+  padding: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+#browse-section li {  
+  width: 100%;
+  padding: 10px;
+  list-style-type: none;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+
 #browse-map-section {
+  height: 100vh;
   width: 70%;
-  border: 1px solid red;
 }
