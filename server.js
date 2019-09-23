@@ -37,6 +37,7 @@ const login = require('./routes/login');
 const logout = require('./routes/logout');
 const register = require('./routes/register');
 const browse = require('./routes/browse.js');
+const cart = require('./routes/cart')
 const sms = require('./routes/sms');
 const user = require('./routes/user');
 
@@ -46,6 +47,7 @@ app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
 app.use("/browse", browse(db));
+app.use("/cart", cart(db));
 app.use("/sms", sms(db));
 app.use("/", home(db));
 
