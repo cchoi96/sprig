@@ -27,6 +27,34 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
+<<<<<<< HEAD
+    const orderInformation = JSON.parse(req.body.orderInfo);
+    const messages = {};
+    const outboundMessages = [];
+    for (key in orderInformation) {
+      messages[key] = {};
+      messages[key].body = `You have received a new order!\n`;
+      // gonna have to get each individual # from the DB
+      messages[key].number = `+16476378535`;
+      for (item in orderInformation[key]) {
+        messages[key].body += `${orderInformation[key][item].quantity} ${item}\n`;
+      }
+      messages[key].body += `Text YES to accept this order at a default time of 10 minutes,\nor YES <number> to accept this order at the time in minutes specified.`;
+      outboundMessages.push(messages[key]);
+    }
+    console.log(messages);
+
+    Promise.all(
+      outboundMessages.map(message => {
+        return client.messages.create({
+          body: message.body,
+          from: `+1${phoneNumber}`,
+          to: message.number
+        });
+      })
+    )
+    .then(message => console.log(message.sid));
+=======
   const data = JSON.parse(req.body.orderInfo);
   console.log(data);
   console.log(req.body);
@@ -36,6 +64,7 @@ module.exports = (db) => {
    //   to: '+16476378535'
    // })
    // .then((message) => console.log(message.sid));
+>>>>>>> 6cf45757a2c1b5c45e5a02766cefd9d113d061e8
   });
 
   return router;
