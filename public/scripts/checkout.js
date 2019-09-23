@@ -37,7 +37,6 @@ for (let key of combinedOrderKeys) {
   $('#form').append(`<h1>${key}</h1>`);
   $('#form').append(`<ul>`)
   let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
-  console.log(combinedRestaurantKeys);
   for (let restaurantKey of combinedRestaurantKeys) {
     $('#form').append(`<li>${restaurantKey}</li>`);
     $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
