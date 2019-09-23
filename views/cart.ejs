@@ -13,19 +13,19 @@
   <!-- Setting Order Info to set to local storage -->
   <div id='restaurantName' style="display: none"><%= orderInfo.restaurantName %></div>
   <% include partials/_header %>
-  <% for (let i = 0; i < orderInfo.item.length; i++){ %>
-    <% if (orderInfo.quantity[i] > 0) { %>
-    <li style="display: none;">
-      <p class='order-items'><%= orderInfo.item[i] %></p>
-      <p class='price-items'><%= orderInfo.cost[i] %></p>
-      <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
-    </li>
-    <% } %>
-  <% } %>
 
   <main>
     <h1>Cart</h1>
-    <form>
+    <% for (let i = 0; i < orderInfo.item.length; i++) { %>
+      <% if (orderInfo.quantity[i] > 0) { %>
+      <li style="list-style: none;">
+        <p class='order-items'><%= orderInfo.item[i] %></p>
+        <p class='price-items'><%= orderInfo.cost[i] %></p>
+        <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
+      </li>
+      <% } %>
+    <% } %>
+    <form action="/cart" method="POST">
       <ul>
         <div id='cart-buttons'>
           <button><a href="/browse">Get More Food</a></button>
@@ -52,7 +52,7 @@
         quantity: quantities[i].innerHTML
       };
       localStorage.setItem('orderObj', JSON.stringify(orderObj));
-    } 
+    }
   } else {
     let orderObj = JSON.parse(localStorage.orderObj);
     orderObj[restaurantName] = {};
@@ -65,7 +65,7 @@
     localStorage.setItem('orderObj', JSON.stringify(orderObj));
   }
 
-  let combinedOrderInformation = 
+  // let combinedOrderInformation =
 
   console.log(JSON.parse(localStorage.orderObj));
 </script>
