@@ -25,6 +25,7 @@ module.exports = (db) => {
   // @ desc   Handle order submissions
   router.post('/:restaurant_id', (req, res) => {
     data.orderInfo = req.body;
+    res.render('cart', data);
   });
 
   // @route   GET /browse/:restaurant_id

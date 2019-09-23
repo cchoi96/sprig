@@ -10,10 +10,64 @@
 </head>
 
 <body>
+  <!-- Setting Order Info to set to local storage -->
+  <div id='restaurantName' style="display: none"><%= orderInfo.restaurantName %></div>
   <% include partials/_header %>
+  <% for (let i = 0; i < orderInfo.item.length; i++){ %>
+    <% if (orderInfo.quantity[i] > 0) { %>
+    <li style="display: none;">
+      <p class='order-items'><%= orderInfo.item[i] %></p>
+      <p class='price-items'><%= orderInfo.cost[i] %></p>
+      <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
+    </li>
+    <% } %>
+  <% } %>
+
   <main>
     <h1>Cart</h1>
+    <form>
+      <ul>
+        <div id='cart-buttons'>
+          <button><a href="/browse">Get More Food</a></button>
+          <button type='submit'>Place Order</button>
+        </div>
+      </ul>
+    </form>
   </main>
 </body>
+
+<script>
+  let restaurantName = document.getElementById('restaurantName').innerHTML;
+  let orderItems = document.getElementsByClassName('order-items');
+  let prices = document.getElementsByClassName('price-items');
+  let quantities = document.getElementsByClassName('quantity-items');
+
+  // Checks if localStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
+  if (!localStorage.orderObj) {
+    let orderObj = {};
+    orderObj[restaurantName] = {};
+    for (let i = 0; i < orderItems.length; i++) {
+      orderObj[restaurantName][orderItems[i].innerHTML] = {
+        price: prices[i].innerHTML,
+        quantity: quantities[i].innerHTML
+      };
+      localStorage.setItem('orderObj', JSON.stringify(orderObj));
+    } 
+  } else {
+    let orderObj = JSON.parse(localStorage.orderObj);
+    orderObj[restaurantName] = {};
+    for (let i = 0; i < orderItems.length; i++) {
+      orderObj[restaurantName][orderItems[i].innerHTML] = {
+        price: prices[i].innerHTML,
+        quantity: quantities[i].innerHTML
+      };
+    }
+    localStorage.setItem('orderObj', JSON.stringify(orderObj));
+  }
+
+  let combinedOrderInformation = 
+
+  console.log(JSON.parse(localStorage.orderObj));
+</script>
 
 </html>
