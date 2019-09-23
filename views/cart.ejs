@@ -80,6 +80,7 @@
     $('#form').append(`<h1>${key}</h1>`);
     $('#form').append(`<ul>`)
     let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
+    console.log(combinedRestaurantKeys);
     for (let restaurantKey of combinedRestaurantKeys) {
       $('#form').append(`<li>${restaurantKey}</li>`);
       $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
@@ -91,7 +92,7 @@
   }
 
   // Sends info of the order to the confirmation page
-  $('#form').append(`<input type='hidden' name='orderInfo' value=${combinedOrder}`);
+  $('#form').append(`<input type='hidden' name='orderInfo' value='${combinedOrder}'/>`);
 
 </script>
 

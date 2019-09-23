@@ -27,12 +27,13 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
-    client.messages.create({
-      body: 'POST /cart',
-      from: '+16474907450',
-      to: '+16476378535'
-    })
-    .then((message) => console.log(message.sid));
+    console.log(req.body);
+    // client.messages.create({
+   //   body: 'POST /cart',
+   //   from: '+16474907450',
+   //   to: '+16476378535'
+   // })
+   // .then((message) => console.log(message.sid));
   });
 
   return router;
