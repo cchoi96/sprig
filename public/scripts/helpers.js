@@ -24,5 +24,5 @@ const generateRandomSMSId = () => {
 
 module.exports = {
   generateRandomId,
-  geenrateRandomSMSId
+  generateRandomSMSId
 };
