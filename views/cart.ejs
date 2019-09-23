@@ -92,7 +92,7 @@
   }
 
   // Sends info of the order to the confirmation page
-  $('#form').append(`<input type='hidden' name='orderInfo' value='${combinedOrder}'/>`);
+  $('#form').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
 
 </script>
 
