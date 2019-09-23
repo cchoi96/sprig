@@ -23,7 +23,7 @@ module.exports = (db) => {
 
   // @route   GET /browse/:restaurant_id/submit
   // @ desc   Handle order submissions
-  router.post('/:restaurant_id', (req, res) => {
+  router.post('/cart', (req, res) => {
     if (req.session.user_id) {
       data.orderInfo = req.body;
       res.render('cart', data);

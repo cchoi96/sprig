@@ -20,9 +20,9 @@ const generateRandomSMSId = () => {
     string += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return string;
-}
+};
 
 module.exports = {
   generateRandomId,
-  geenrateRandomSMSId
+  generateRandomSMSId
 };
