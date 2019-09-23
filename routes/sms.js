@@ -12,23 +12,31 @@ router.use(cookieSession({
 }));
 
 module.exports = (db) => {
+  // This should take the data from the newly created
+  // order and render it to the restaurant.
+
+  // @route     POST /sms
+  // @desc      Sends an SMS
   router.post('/', (req, res) => {
     const twiml = new MessagingResponse();
-    // req.body.Body for the Twilio message body.
-    // console.log(req.body.Body);
+    // Query for the order's contents:
+    const queryString = `
+      SELECT menu_items.name AS name, quantity FROM order_items
+      JOIN menu_items ON order_items.menu_item_id = menu_items.id
+      JOIN orders ON order_items.order_id = orders.id
+      WHERE orders.id = $1
+    `;
+    // prepare the message and inform the restaurant:
+    let message = `New order for you!\n`;
 
-    // do a query then render it into a message:
-    const queryString = `SELECT name FROM users where id = $1`;
-
-    db.query(queryString, [req.body.Body])
-    .then(result => {
-      let message = `Result: ${result.rows[0].name}`;
+    db.query(queryString, [1])
+    .then(resultSet => {
+      for (row of resultSet.rows) {
+        message += `${row.quantity} ${row.name}\n`
+      }
       twiml.message(message);
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
-    })
-    .catch(err => {
-      console.error(err);
     })
   });
 
