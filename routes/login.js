@@ -18,7 +18,8 @@ module.exports = (db) => {
     error: {
       registerError: false,
       loginError: false
-    }
+    },
+    email: ''
   };
 
   // @route   GET /login
@@ -51,13 +52,14 @@ module.exports = (db) => {
           let response = userInfo.rows[0];
           if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
+            req.session.email = response.email;
             data.user = response.name;
             data.email = response.email;
             data.error.loginError = false;
-            res.render('browse', data);
+            res.redirect('/browse');
           } else {
             data.error.loginError = true;
-            res.render('login', data);
+            res.render('browse');
           }
 
         })

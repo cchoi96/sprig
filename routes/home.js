@@ -24,7 +24,6 @@ module.exports = (db) => {
       .query(query, values)
       .then(user => {
         let response = user.rows[0];
-        console.log(req.session.user_id);
         data.user = response.name;
         data.email = response.email;
         res.render('home', data);

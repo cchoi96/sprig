@@ -22,8 +22,7 @@
         <div id='restaurants-list'>
           <ul>
             <% for (let restaurant of restaurants) { %>
-              <% let restaurantUrl = restaurant.name.split(' ').join('-');
-                 console.log(restaurantUrl); %>
+              <% let restaurantUrl = restaurant.name.split(' ').join('%20'); %>
               <a href="/browse/<%= restaurantUrl %>">
                 <li>
                     <h3><%= restaurant.name %></h3>
