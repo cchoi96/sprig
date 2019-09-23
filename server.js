@@ -37,6 +37,7 @@ const login = require('./routes/login');
 const logout = require('./routes/logout');
 const register = require('./routes/register');
 const browse = require('./routes/browse.js');
+const sms = require('./routes/sms');
 const user = require('./routes/user');
 
 // Mount all resource routes
@@ -45,6 +46,7 @@ app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
 app.use("/browse", browse(db));
+app.use("/sms", sms(db));
 app.use("/", home(db));
 
 app.listen(PORT, () => {
