@@ -17,27 +17,22 @@ module.exports = (db) => {
     error: {},
     restaurants: '',
     restaurant: '',
-    orderInfo: ''
+    orderInfo: '',
+    email: ''
   };
 
   // @route   GET /browse/:restaurant_id/submit
   // @ desc   Handle order submissions
   router.post('/:restaurant_id', (req, res) => {
     data.orderInfo = req.body;
-    console.log(data);
   });
 
   // @route   GET /browse/:restaurant_id
   // @ desc   Render browse page for individual restaurant
   router.get('/:restaurant_id', (req, res) => {
     // Can run into issues if the restaurant name has a - in it.
-<<<<<<< HEAD
     const restaurantName = req.params.restaurant_id.split('%20').join(' ');
-    const query = `SELECT * 
-=======
-    const restaurantName = req.params.restaurant_id.split('-').join(' ');
     const query = `SELECT *
->>>>>>> ebfbdf782b239584c8f46715af2ebde7bf2d1377
                    FROM restaurants
                    JOIN menu_items ON restaurants.id = menu_items.restaurant_id
                    WHERE restaurants.name LIKE $1`;
@@ -59,6 +54,8 @@ module.exports = (db) => {
   // @route   GET /browse
   // @ desc   Render browse page
   router.get('/', (req, res) => {
+    data.email = req.session.email;
+    data.user = req.session.user_id;
     const query = `SELECT * FROM restaurants`;
     db
       .query(query)
@@ -73,8 +70,6 @@ module.exports = (db) => {
   // @ desc   Search
   router.post('/', (req, res) => {
 
-<<<<<<< HEAD
-=======
     if (emptyField) {
       // Should update this to send error message instead D:"
       res.status(400).send('One or both of the email or password fields is/are empty!');
@@ -101,7 +96,6 @@ module.exports = (db) => {
           res.render('browse', data);
         });
     }
->>>>>>> ebfbdf782b239584c8f46715af2ebde7bf2d1377
   });
 
   return router;
