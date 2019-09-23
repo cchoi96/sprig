@@ -3,7 +3,7 @@ VALUES
 -- will have same user owning them, pointing to
 -- my phone number currently to test the SMS API
 (
-  'AAAAAA',
+  'CCCCCC',
   'Greasy Burger Joint',
   '336 Baloney Lane',
   'Diner',
@@ -11,7 +11,7 @@ VALUES
   'greasy@burgers.net'
 ),
 (
-  'CCCCCC',
+  'DDDDDD',
   'Santino Pizza',
   '235 Pizza Road',
   'Italian',
@@ -19,7 +19,7 @@ VALUES
   'santino@pizza.net'
 ),
 (
-  'DDDDDD',
+  'EEEEEE',
   'Eddy the Eagle Barbeque',
   '150 Noodles Drive',
   'Barbeque',

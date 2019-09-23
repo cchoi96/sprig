@@ -4,7 +4,6 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const client = require('twilio')(accountSid, authToken);
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +27,7 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
+<<<<<<< HEAD
     const orderInformation = JSON.parse(req.body.orderInfo);
     const messages = {};
     const outboundMessages = [];
@@ -54,6 +54,17 @@ module.exports = (db) => {
       })
     )
     .then(message => console.log(message.sid));
+=======
+  const data = JSON.parse(req.body.orderInfo);
+  console.log(data);
+  console.log(req.body);
+    // client.messages.create({
+   //   body: 'POST /cart',
+   //   from: '+16474907450',
+   //   to: '+16476378535'
+   // })
+   // .then((message) => console.log(message.sid));
+>>>>>>> 6cf45757a2c1b5c45e5a02766cefd9d113d061e8
   });
 
   return router;
