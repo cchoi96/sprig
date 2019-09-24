@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- This renders the page of each individual restaurant -->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +14,16 @@
 <body>
   <% include partials/_header %>
   <main>
+
     <div>
       <h1 id='restaurantName'><%= restaurantName %></h1>
     </div>
+
     <div class="menu">
+
       <h3>Menu</h3>
+
+      <!-- Order information for each restaurant sent to /browse/cart -->
       <form method="POST" action="/browse/cart">
         <input type='hidden' name='restaurantName' value='<%= restaurantName %>'/>
         <input type='hidden' name='restaurantId' value='<%= restaurantData[0].restaurant_id %>'/>
@@ -26,7 +33,7 @@
             <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>'/>
             <input type='hidden' name='itemId' value='<%= (restaurantItem.id) %>'/>
             <input type='hidden' name='item' value='<%= restaurantItem.name %>'/>
-            <h4><%= restaurantItem.name %></h4></input>
+            <h4><%= restaurantItem.name %></h4>
             <p><%= restaurantItem.description %></p>
             <p>$<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %></p>
             <div class='iterator'>
@@ -39,24 +46,14 @@
           </ul>
           <button id='submit' type="submit" value="submit">Submit</button>
       </form>
+
     </div>
+
   </main>
 
+  <!-- This script runs the logic for the iterator buttons -->
   <script src='/scripts/iterator.js'></script>
-  <!-- <script>
-    let restaurant = document.getElementById('restaurantName').innerHTML;
-    let quantities = document.getElementsByClassName('menu-item-input');
-    let data = JSON.parse(localStorage.orderObj);
-    console.log(data);
 
-    if (data[restaurant]) {
-      for (let i = 0; i < quantities.length; i++) {
-        
-      }
-    } else {
-      console.log('WOOO');
-    }
-  </script> -->
 </body>
 
 </html>

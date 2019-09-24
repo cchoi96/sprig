@@ -21,8 +21,8 @@ module.exports = (db) => {
     email: ''
   };
 
-  // @route   GET /browse/:restaurant_id/submit
-  // @ desc   Handle order submissions
+  // @route   GET /browse/cart
+  // @ desc   Receives information sent from individual restaurants and pushes it to cart.ejs, only if user is logged in
   router.post('/cart', (req, res) => {
     if (req.session.user_id) {
       data.orderInfo = req.body;
@@ -35,7 +35,6 @@ module.exports = (db) => {
   // @route   GET /browse/:restaurant_id
   // @ desc   Render browse page for individual restaurant
   router.get('/:restaurant_id', (req, res) => {
-    // Can run into issues if the restaurant name has a - in it.
     const restaurantName = req.params.restaurant_id.split('%20').join(' ');
     const query = `SELECT *
                    FROM restaurants

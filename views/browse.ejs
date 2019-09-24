@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- This page renders the general browsing page of restaurants -->
+
 <head>
   <title>Browse</title>
 
@@ -9,7 +11,7 @@
   <link rel="stylesheet" href="/styles/animate.css">
   <link rel="stylesheet" href="/styles/browse.css" type="text/css" />
 
-  <!-- Leaflet -->
+  <!-- Leaflet Requirements -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
@@ -24,6 +26,7 @@
 <body>
   <% include partials/_header.ejs %>
   <% include partials/_form.ejs %>
+
   <div class='browse'>
     <div id="browse-section">
       <h2>Browse</h1>
@@ -48,6 +51,7 @@
   </div>
 
   <script>
+    // Basic Leaflet map
     let mymap = L.map('browse-map-section').setView([43.6532, -79.3832], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -56,6 +60,7 @@
 
     L.marker([51.5, -0.09]).addTo(mymap);
   </script>
+
 </body>
 
 </html>
