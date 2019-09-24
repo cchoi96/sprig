@@ -37,41 +37,18 @@ module.exports = (db) => {
   // @route   POST /cart
   // @ desc   Search
   router.post('/', (req, res) => {
-    // const orderInformation = JSON.parse(req.body.orderInfo);
-    // const message = {};
-    // const outboundMessages = [];
-    // // const insertOrderQuery = `INSERT INTO orders ()`
-    // for (key in orderInformation) {
-    //   messages[key] = {};
-    //   messages[key].body = `You have received a new order!\n`;
-    //   // gonna have to get each individual # from the DB
-    //   messages[key].number = `+16476378535`;
-    //   messages[key].sms_code = generateRandomSMSId();
-    //   let code = messages[key].sms_code;
-    //   for (item in orderInformation[key]) {
-    //     messages[key].body += `${orderInformation[key][item].quantity} ${item}\n`;
-    //   }
-    //   messages[key].body += `Text ${code} to accept this order at a default time of 10 minutes,\nor ${code} <number> to accept this order at the time in minutes specified.`;
-    //   outboundMessages.push(messages[key]);
-    // }
-    // console.log(messages);
 
-    // Promise.all(
-    //   outboundMessages.map(message => {
-    //     return client.messages.create({
-    //       body: message.body,
-    //       from: `+1${phoneNumber}`,
-    //       to: message.number
-    //     });
-    //   })
-    // )
-    // .then(message => console.log(message.sid));
-    // console.log(JSON.parse(req.body.orderInfo));
     // const restaurantInfo = JSON.parse(req.body.orderInfo);
     const restaurantAndItemIds = JSON.parse(req.body.orderData);
     console.log(restaurantAndItemIds);
+<<<<<<< HEAD
 
 
+=======
+    let textData = {
+      orderItem: []
+    };
+>>>>>>> e3ce0a81b5d0a5f7fbad1a8041975ecf6681afd2
 
     let restaurantId = restaurantAndItemIds.restaurantId;
     let orderIdQuery = `INSERT INTO orders(customer_id, restaurant_id)
@@ -84,6 +61,7 @@ module.exports = (db) => {
       .then(orderResponse => {
         let queries = [];
         let orderId = orderResponse.rows[0].id;
+<<<<<<< HEAD
         // Checks if quantity = 0. If not, it pushes it into the order_items table.
         for (let orderIndex = 0; orderIndex < restaurantAndItemIds.itemId.length; orderIndex++) {
           if (restaurantAndItemIds.quantity[orderIndex] !== '0') {
@@ -110,6 +88,38 @@ module.exports = (db) => {
             console.log(`ERROR: ${err}`);
           })
         })
+=======
+        textData.orderId = orderResponse.rows[0].id;
+
+        let promises = [];
+        for (let orderIndex = 0; orderIndex < restaurantAndItemIds.itemId.length; orderIndex++) {
+          promises.push(
+            new Promise(function(resolve, reject) {
+              if (restaurantAndItemIds.quantity[orderIndex] !== '0') {
+                let orderItemQuery = `INSERT INTO order_items(order_id, menu_item_id, quantity)
+                VALUES($1, $2, $3)
+                RETURNING *`;
+                let orderItemValues = [orderId, restaurantAndItemIds.itemId[orderIndex], restaurantAndItemIds.quantity[orderIndex]];
+                db
+                .query(orderItemQuery, orderItemValues)
+                .then(insertedOrderData => {
+                  console.log('123');
+                  textData.orderItem.push('sdlfkjsklfjs');
+                  resolve();
+                })
+              }
+            })
+          )
+        }
+
+        Promise.all(promises)
+          .then(() => {
+            console.log('hi');
+            console.log(textData);
+          })
+
+      })
+>>>>>>> e3ce0a81b5d0a5f7fbad1a8041975ecf6681afd2
       .catch(err => {
         console.error(err);
       })
