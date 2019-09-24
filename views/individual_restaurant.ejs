@@ -19,10 +19,12 @@
       <h3>Menu</h3>
       <form method="POST" action="/browse/cart">
         <input type='hidden' name='restaurantName' value='<%= restaurantName %>'/>
+        <input type='hidden' name='restaurantId' value='<%= restaurantData[0].restaurant_id %>'/>
         <ul>
-        <% for (restaurantItem of restaurant) { %>
+        <% for (let restaurantItem of restaurantData) { %>
           <li>
             <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>'/>
+            <input type='hidden' name='itemId' value='<%= (restaurantItem.id) %>'/>
             <input type='hidden' name='item' value='<%= restaurantItem.name %>'/>
             <h4><%= restaurantItem.name %></h4></input>
             <p><%= restaurantItem.description %></p>

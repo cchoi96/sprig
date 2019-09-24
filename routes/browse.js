@@ -45,10 +45,9 @@ module.exports = (db) => {
     db
       .query(query, values)
       .then(restaurantData => {
-        const restaurantInfo = restaurantData.rows;
-        data.restaurant = restaurantInfo;
         data.restaurantName = restaurantName;
         data.restaurantUrlName = req.params.restaurant_id;
+        data.restaurantData = restaurantData.rows;
         res.render('individual_restaurant', data);
       })
       .catch(err => {
@@ -74,33 +73,6 @@ module.exports = (db) => {
   // @route   POST /browse
   // @ desc   Search
   router.post('/', (req, res) => {
-
-    if (emptyField) {
-      // Should update this to send error message instead D:"
-      res.status(400).send('One or both of the email or password fields is/are empty!');
-    } else {
-      // Sanitizing inputs
-      const query = `SELECT * FROM users
-                     WHERE users.id = $1
-                     LIMIT 1
-                        `;
-      const values = [req.body.username];
-
-      db
-        .query(query, values)
-        .then(res => {
-          if (bcrypt.compareSync(req.body.password, res.rows.password)) {
-            req.session.user_id = res.rows.id;
-            data.user = res.rows.name
-            res.render('browse', data);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          data.errorMessage = true;
-          res.render('browse', data);
-        });
-    }
   });
 
   return router;

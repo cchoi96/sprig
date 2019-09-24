@@ -66,6 +66,7 @@ module.exports = (db) => {
           } else {
             let response = newUser.rows[0];
             data.user = response.name;
+            req.session.user_id = newUser.rows[0].id;
             data.email = response.email;
             res.render('home', data);
           }

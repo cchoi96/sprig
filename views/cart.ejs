@@ -26,6 +26,7 @@
   <main>
     <h1>Cart</h1>
     <form method='POST' action='/cart' id='form'>
+      <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>'/>
       <div id='cart-buttons'>
         <button><a href="/browse">Get More Food</a></button>
         <button type='submit'>Place Order</button>
@@ -92,6 +93,13 @@
 
   // Sends info of the order to the confirmation page
   $('#form').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
+
+  // Clears sessionStorage once it is submitted
+  $('#form').submit(() => {
+    sessionStorage.clear();
+  });
+
+  
 
 </script>
 
