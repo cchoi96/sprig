@@ -59,11 +59,13 @@ module.exports = (db) => {
           return res.rows.length === 0 ? db.query(insertUser, userValue) : null;
         })
         .then(newUser => {
+          // if there's no user by that name, render the register page with an error message:
           if (newUser === null) {
             data.error.registerError = true;
             console.log(data);
             res.render('register', data);
           } else {
+            // assign the data object the user, render the home page with the data:
             let response = newUser.rows[0];
             data.user = response.name;
             req.session.user_id = newUser.rows[0].id;

@@ -44,11 +44,12 @@ module.exports = (db) => {
                      LIMIT 1
                         `;
       const getUserValues = [req.body.email];
-      
+
       db
         .query(getUser, getUserValues)
         .then(userInfo => {
           let response = userInfo.rows[0];
+          // if the password is correct:
           if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
             req.session.email = response.email;

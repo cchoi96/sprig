@@ -15,7 +15,8 @@ module.exports = (db) => {
   let data = {
     user: '',
   };
-
+  // Intended for the restaurant user. Shows order history, pending orders, and other pertinent information.
+  // Restaurant owners are redirected to this route on login.
   router.get('/', (req, res) => {
     data.email = req.session.email;
     data.user = req.session.user_id;

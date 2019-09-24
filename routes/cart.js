@@ -97,6 +97,7 @@ module.exports = (db) => {
         Promise.all(queries)
           .then(insertedOrderData => {
             let messageOrderId = insertedOrderData[0].rows[0].order_id;
+            // will add order details when core done
             client.messages.create({
               body: `You have a new message!\nPlease check for order# ${messageOrderId} in your Sprig account!`,
               from: `+1${phoneNumber}`,

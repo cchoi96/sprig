@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/restaurant.css" type="text/css" />
+  <link rel="stylesheet" href="../public/styles/restaurant.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -20,12 +20,15 @@
       <% if (restaurantObj) { %>
         <% const keys = Object.keys(restaurantObj); %>
         <% for (let key of keys) { %>
+          <div>
           <h2>Order #<%= key %></h1>
           <% const itemKeys = Object.keys(restaurantObj[key]); %>
           <% for (itemKey of itemKeys) { %>
             <p><%= itemKey %> : <%= restaurantObj[key][itemKey].quantity %></p>
           <% } %>
         <% } %>
+          <button class="complete-button">Submit</button>
+          </div>
       <% } else { %>
 
       <% } %>
