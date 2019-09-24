@@ -38,6 +38,7 @@ const logout = require('./routes/logout');
 const register = require('./routes/register');
 const restaurant = require('./routes/restaurant');
 const browse = require('./routes/browse.js');
+const history = require('./routes/history');
 const cart = require('./routes/cart')
 const sms = require('./routes/sms');
 
@@ -48,6 +49,7 @@ app.use("/logout", logout());
 app.use("/register", register(db));
 app.use('/restaurant', restaurant(db));
 app.use("/browse", browse(db));
+app.use("/history", history(db));
 app.use("/cart", cart(db));
 app.use("/sms", sms(db));
 app.use("/", home(db));

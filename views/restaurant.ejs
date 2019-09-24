@@ -16,17 +16,6 @@
   <% include partials/_header.ejs %>
   <main>
     <h1>Order History</h3>
-<<<<<<< HEAD
-    <div>
-      <% if (restaurantObj) { %>
-        <% const keys = Object.keys(restaurantObj); %>
-        <% for (let key of keys) { %>
-          <div>
-          <h2>Order #<%= key %></h1>
-          <% const itemKeys = Object.keys(restaurantObj[key]); %>
-          <% for (itemKey of itemKeys) { %>
-            <p><%= itemKey %> : <%= restaurantObj[key][itemKey].quantity %></p>
-=======
       <div>
         <% let uncompletedOrders = [];
          let pendingOrders = [];
@@ -43,8 +32,6 @@
             }
           }
       } %>
-
-        <h1>Order History</h1>
         <h2>Unaccepted Orders</h2>
           <% for (let uncompletedOrder of uncompletedOrders) { %>
             <h3>#<%= uncompletedOrder.id %></h3>
@@ -63,19 +50,12 @@
           <h3>#<%= pendingOrder.id %></h3>
           <% for (let item of pendingOrder.items) { %>
             <li><%= item.name %>: <%= item.quantity %></li>
->>>>>>> e3ce0a81b5d0a5f7fbad1a8041975ecf6681afd2
           <% } %>
           <form method='POST' action='/restaurant/complete'>
             <input type='hidden' name='orderId' value='<%= pendingOrder.id %>'/>
             <button type='submit'>Complete</button>
           </form>
         <% } %>
-<<<<<<< HEAD
-          <button class="complete-button">Submit</button>
-          </div>
-      <% } else { %>
-=======
->>>>>>> e3ce0a81b5d0a5f7fbad1a8041975ecf6681afd2
 
         <h2>Completed Orders</h2>
         <% for (let completedOrder of completedOrders) { %>

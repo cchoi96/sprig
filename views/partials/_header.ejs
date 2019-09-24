@@ -12,7 +12,14 @@
     </div>
     <li id='my-urls' class='hamburger-item'><a href='/browse'>Browse</a></li>
     <% if (user) { %>
-    <div id='end' >
+    <div id='end'>
+      <li class='button-left hamburger-item'>
+        <a href='/history'>
+          <button type="submit" class='hover'>
+            Order History
+          </button>
+        </a>
+      </li>
       <li class='button-left hamburger-item'>
         <form method="POST" action="/logout">
           <button type="submit" class='hover'>
@@ -21,7 +28,7 @@
         </form>
       </li>
     </div>
-    <% } else  { %>
+    <% } else { %>
     <div id='end'>
       <li class='button-left hamburger-item'>
         <a href="/register">
@@ -47,12 +54,12 @@
 <% } %>
 
 <script>
-const classToggle = () =>  {
-  const navs = document.querySelectorAll('.hamburger-item')
-  
-  navs.forEach(nav => nav.classList.toggle('hamburger-menu'));
-}
+  const classToggle = () => {
+    const navs = document.querySelectorAll('.hamburger-item')
 
-document.querySelector('.link-toggle')
-  .addEventListener('click', classToggle);
+    navs.forEach(nav => nav.classList.toggle('hamburger-menu'));
+  }
+
+  document.querySelector('.link-toggle')
+    .addEventListener('click', classToggle);
 </script>
