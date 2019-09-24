@@ -11,14 +11,6 @@ router.use(cookieSession({
 }));
 
 module.exports = (db) => {
-<<<<<<< HEAD
-  // Data object to be passed into EJS
-  let data = {
-    user: '',
-  };
-  // Intended for the restaurant user. Shows order history, pending orders, and other pertinent information.
-  // Restaurant owners are redirected to this route on login.
-=======
 
   router.post('/accept', (req, res) => {
     let data = {
@@ -74,7 +66,6 @@ module.exports = (db) => {
       .catch(err => console.log(err));
   });
 
->>>>>>> e3ce0a81b5d0a5f7fbad1a8041975ecf6681afd2
   router.get('/', (req, res) => {
       // Data object to be passed into EJS
       let data = {
