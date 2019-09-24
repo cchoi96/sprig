@@ -30,9 +30,8 @@ module.exports = (db) => {
   // @ desc   Search
   router.post('/', (req, res) => {
     const orderInformation = JSON.parse(req.body.orderInfo);
-    const message = {};
+    const messages = {};
     const outboundMessages = [];
-    // const insertOrderQuery = `INSERT INTO orders ()`
     for (key in orderInformation) {
       messages[key] = {};
       messages[key].body = `You have received a new order!\n`;
