@@ -11,41 +11,32 @@ router.use(cookieSession({
 }));
 
 module.exports = (db) => {
-  // Data object to be passed into EJS
-  let data = {
-    user: '',
-  };
 
   router.get('/', (req, res) => {
+      // Data object to be passed into EJS
+      let data = {
+        user: '',
+      };
     data.email = req.session.email;
     data.user = req.session.user_id;
-    const getRestaurantOwner = `SELECT * FROM restaurants
-                                JOIN users ON restaurants.owner_id = users.id
-                                JOIN menu_items ON menu_items.restaurant_id = restaurants.id
+    const getOrders = `SELECT orders.id, json_agg(json_build_object('name', menu_items.name, 'quantity', order_items.quantity)) as "items", orders.order_status as "status"
+                                FROM restaurants
                                 JOIN orders on orders.restaurant_id = restaurants.id
                                 JOIN order_items ON order_items.order_id = orders.id
-                                WHERE users.id = $1
+                                JOIN menu_items ON menu_items.id = order_items.menu_item_id
+                                WHERE restaurants.owner_id = $1
                                 AND order_items.quantity > 0
-                                GROUP BY restaurants.id, users.id, menu_items.id, orders.id, order_items.id`;
+                                GROUP BY orders.id
+                                ORDER BY orders.id DESC`;
+
     const values = [req.session.user_id];
 
     db
-      .query(getRestaurantOwner, values)
-      .then(restaurant => {
-        let restaurantArr = restaurant.rows;
-        const restaurantObj = {};
-
-        for (let obj of restaurantArr) {
-            if (!restaurantObj[obj.order_id]) {
-              restaurantObj[obj.order_id] = {};
-            }
-            restaurantObj[obj.order_id][obj.name] = {
-              price: obj.cost_in_cents,
-              quantity: obj.quantity
-            };
-        }
-        data.restaurantObj = restaurantObj;
+      .query(getOrders, values)
+      .then(orders => {
+        data.orders = orders.rows;
         res.render('restaurant', data);
+        console.log(data.orders);
       })
   });
   return router;

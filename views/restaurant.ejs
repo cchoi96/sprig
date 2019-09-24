@@ -16,20 +16,48 @@
   <% include partials/_header.ejs %>
   <main>
     <h1>Order History</h3>
-    <div>
-      <% if (restaurantObj) { %>
-        <% const keys = Object.keys(restaurantObj); %>
-        <% for (let key of keys) { %>
-          <h2>Order #<%= key %></h1>
-          <% const itemKeys = Object.keys(restaurantObj[key]); %>
-          <% for (itemKey of itemKeys) { %>
-            <p><%= itemKey %> : <%= restaurantObj[key][itemKey].quantity %></p>
+      <div>
+        <% let uncompletedOrders = [];
+         let pendingOrders = [];
+         let completedOrders = [];
+      %>
+        <% if (orders) {
+          for (let individualOrder of orders) {
+            if (individualOrder.status === 'not accepted') {
+              uncompletedOrders.push(individualOrder);
+            } else if (individualOrder.status === 'pending') {
+              pendingOrders.push(individualOrder);
+            } else {
+              completed.push(individualOrder);
+            }
+          }
+      } %>
+
+        <h1>Order History</h1>
+        <h2>Unaccepted Orders</h2>
+          <% for (let uncompletedOrder of uncompletedOrders) { %>
+            <h3>#<%= uncompletedOrder.id %></h3>
+            <% for (let item of uncompletedOrder.items) { %>
+              <li><%= item.name %>: <%= item.quantity %></li>
+            <% } %>
+          <% } %>
+
+        <h2>Pending Orders</h2>
+        <% for (let pendingOrder of pendingOrders) { %>
+          <h3>#<%= pendingOrder.id %></h3>
+          <% for (let item of pendingOrder.items) { %>
+            <li><%= item.name %>: <%= item.quantity %></li>
           <% } %>
         <% } %>
-      <% } else { %>
 
-      <% } %>
-    </div>
+        <h2>Completed Orders</h2>
+        <% for (let completedOrder of completedOrders) { %>
+          <h3>#<%= completedOrder.id %></h3>
+          <% for (let item of completedOrder.items) { %>
+            <li><%= item.name %>: <%= item.quantity %></li>
+          <% } %>
+        <% } %>
+      </div>
   </main>
 </body>
 
