@@ -69,10 +69,9 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
       // Data object to be passed into EJS
       let data = {
-        user: '',
+        user: req.session.user_id,
+        email: req.session.email
       };
-    data.email = req.session.email;
-    data.user = req.session.user_id;
     const getOrders = `SELECT orders.id, json_agg(json_build_object('name', menu_items.name, 'quantity', order_items.quantity)) as "items", orders.order_status as "status"
                                 FROM restaurants
                                 JOIN orders on orders.restaurant_id = restaurants.id
@@ -90,7 +89,6 @@ module.exports = (db) => {
       .then(orders => {
         data.orders = orders.rows;
         res.render('restaurant', data);
-        console.log(data.orders);
       })
   });
 
