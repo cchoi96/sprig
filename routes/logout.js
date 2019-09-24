@@ -6,6 +6,7 @@ module.exports = (db) => {
   // @desc    Clear cookie
   router.post('/', (req, res) => {
     res.clearCookie('user_id');
+    res.clearCookie('email');
     res.redirect('/');
   });
 

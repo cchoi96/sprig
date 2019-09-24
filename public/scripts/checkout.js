@@ -27,8 +27,6 @@ if (!sessionStorage.orderObj) {
   sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
 }
 
-localStorage.clear();
-
 // Setting the innerHTML for the cart page
 // Creating an array of keys for each layer of the object, then rendering to screen
 let combinedOrder = JSON.parse(sessionStorage.orderObj);

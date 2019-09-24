@@ -15,15 +15,15 @@
 <body>
   <% include partials/_header.ejs %>
   <main>
-    <h3></h3>
+    <h1>Order History</h3>
     <div>
       <% if (restaurantObj) { %>
         <% const keys = Object.keys(restaurantObj); %>
         <% for (let key of keys) { %>
-          <h1><%= key %></h1>
+          <h2>Order #<%= key %></h1>
           <% const itemKeys = Object.keys(restaurantObj[key]); %>
           <% for (itemKey of itemKeys) { %>
-            <p><%= itemKey %></p>
+            <p><%= itemKey %> : <%= restaurantObj[key][itemKey].quantity %></p>
           <% } %>
         <% } %>
       <% } else { %>

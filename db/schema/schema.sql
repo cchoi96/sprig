@@ -37,9 +37,10 @@ CREATE TABLE orders (
   customer_id VARCHAR(6) NOT NULL REFERENCES users(id),
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   sms_code VARCHAR(4) NOT NULL,
-  time_created TIMESTAMP NOT NULL,
+  time_created TIMESTAMP NOT NULL DEFAULT now(),
   picked_up BOOLEAN NOT NULL DEFAULT FALSE,
   time_fulfilled TIMESTAMP DEFAULT NULL,
+  order_status VARCHAR(15) NOT NULL DEFAULT 'not accepted',
   -- optional notes to inform restaurant of anything specific/necessary to the order.
   notes TEXT
 );
@@ -48,7 +49,7 @@ CREATE TABLE reviews (
   id SERIAL PRIMARY KEY,
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   reviewer_id VARCHAR(6) NOT NULL REFERENCES users(id),
-  rating INTEGER NOT NULL DEFAULT 0,
+  rating INTEGER NOT NULL DEFAULT 5,
   time_created TIMESTAMP NOT NULL,
   -- should just allow for a rating and no need to post a body if they just want to rate by stars
   body TEXT

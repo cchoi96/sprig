@@ -62,7 +62,7 @@ module.exports = (db) => {
             }
           } else {
             data.error.loginError = true;
-            res.render('browse');
+            res.render('login', data);
           }
 
         })
