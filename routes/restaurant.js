@@ -33,6 +33,21 @@ module.exports = (db) => {
         db
           .query(acceptOrder, acceptOrderValues)
           .then(() => {
+          // get the user information to determine phone #
+          const userPhoneNumberQuery =
+          `
+          SELECT users.phone_number FROM users
+          JOIN orders ON users.id = orders.customer_id
+          WHERE orders.customer_id = $1
+          AND orders.id = $2
+          `;
+          const queryParams = [req.session.user_id, req.body.orderId]
+          db
+            .query(userPhoneNumberQuery, queryParams)
+            .then(resultSet => {
+              console.log(resultSet.rows[0].phoneNumber);
+            })
+            .catch(err => console.error(err));
             res.redirect('/restaurant');
           })
       })
