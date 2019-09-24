@@ -67,7 +67,7 @@ module.exports = (db) => {
     // )
     // .then(message => console.log(message.sid));
     // console.log(JSON.parse(req.body.orderInfo));
-    const restaurantInfo = JSON.parse(req.body.orderInfo);
+    // const restaurantInfo = JSON.parse(req.body.orderInfo);
     const restaurantAndItemIds = JSON.parse(req.body.orderData);
     console.log(restaurantAndItemIds);
 

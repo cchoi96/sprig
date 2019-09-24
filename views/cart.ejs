@@ -13,18 +13,22 @@
   <!-- Setting Order Info to set to local storage -->
   <div id='restaurantName' style="display: none"><%= orderInfo.restaurantName %></div>
   <% include partials/_header %>
+
   <% for (let i = 0; i < orderInfo.item.length; i++){ %>
-  <% if (orderInfo.quantity[i] > 0) { %>
-  <li style="display: none;">
-    <p class='order-items'><%= orderInfo.item[i] %></p>
-    <p class='price-items'><%= orderInfo.cost[i] %></p>
-    <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
-  </li>
-  <% } %>
+   <!-- If the quantity of the order is greater than 0, outputs it as HTML -->
+    <% if (orderInfo.quantity[i] > 0) { %>
+    <li style="display: none;">
+      <p class='order-items'><%= orderInfo.item[i] %></p>
+      <p class='price-items'><%= orderInfo.cost[i] %></p>
+      <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
+    </li>
+    <% } %>
+
   <% } %>
 
   <main>
     <h1>Cart</h1>
+    <!-- Takes the order information and passes it into /cart -->
     <form method='POST' action='/cart' id='form'>
       <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>'/>
       <div id='cart-buttons'>
@@ -73,22 +77,24 @@
   // Setting the innerHTML for the cart page
   // Creating an array of keys for each layer of the object, then rendering to screen
   let combinedOrder = JSON.parse(sessionStorage.orderObj);
+  console.log(combinedOrder);
   let combinedOrderKeys = Object.keys(combinedOrder);
-
   for (let key of combinedOrderKeys) {
-    let total = 0;
-    $('#form').append(`<h1>${key}</h1>`);
-    $('#form').append(`<ul>`)
-    let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
-    console.log(combinedRestaurantKeys);
-    for (let restaurantKey of combinedRestaurantKeys) {
-      $('#form').append(`<li>${restaurantKey}</li>`);
-      $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
-      $('#form').append(`<li>${combinedOrder[key][restaurantKey].quantity}</li>`);
-      total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key][restaurantKey].quantity);
+    // Checks if the combinedOrder restaurant has any orders at all, and if so, renders them to the page
+    if (!jQuery.isEmptyObject(combinedOrder[key])) {
+      let total = 0;
+      $('#form').append(`<h1>${key}</h1>`);
+      $('#form').append(`<ul>`)
+      let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
+      for (let restaurantKey of combinedRestaurantKeys) {
+        $('#form').append(`<li>${restaurantKey}</li>`);
+        $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
+        $('#form').append(`<li>${combinedOrder[key][restaurantKey].quantity}</li>`);
+        total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key][restaurantKey].quantity);
+      }
+      $('#form').append(`<li>${total.toFixed(2)}</li>`);
+      $('#form').append('</ul>');
     }
-    $('#form').append(`<li>${total.toFixed(2)}</li>`);
-    $('#form').append('</ul>');
   }
 
   // Sends info of the order to the confirmation page
