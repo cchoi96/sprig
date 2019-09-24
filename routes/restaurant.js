@@ -12,6 +12,60 @@ router.use(cookieSession({
 
 module.exports = (db) => {
 
+  router.post('/accept', (req, res) => {
+    let data = {
+      user: '',
+    };
+    data.email = req.session.email;
+    data.user = req.session.user_id;
+    const findUser = `SELECT customer_id FROM orders
+                      WHERE orders.id = $1`;
+    const findUserValues = [req.body.orderId];
+    db
+      .query(findUser, findUserValues)
+      .then(userData => {
+        let userId = userData.rows[0].customer_id;
+        console.log('userdata', userData.rows[0]);
+        const acceptOrder = `UPDATE orders
+                           SET order_status = 'pending'
+                           WHERE orders.id = $1`;
+        const acceptOrderValues = [req.body.orderId];
+        db
+          .query(acceptOrder, acceptOrderValues)
+          .then(() => {
+            res.redirect('/restaurant');
+          })
+      })
+      .catch(err => console.log(err));
+  });
+
+  router.post('/complete', (req, res) => {
+    let data = {
+      user: '',
+    };
+    data.email = req.session.email;
+    data.user = req.session.user_id;
+    const findUser = `SELECT customer_id FROM orders
+                      WHERE orders.id = $1`;
+    const findUserValues = [req.body.orderId];
+    db
+      .query(findUser, findUserValues)
+      .then(userData => {
+        let userId = userData.rows[0].customer_id;
+        console.log('userdata', userData.rows[0]);
+        const acceptOrder = `UPDATE orders
+                           SET order_status = 'completed'
+                           WHERE orders.id = $1`;
+        const acceptOrderValues = [req.body.orderId];
+        db
+          .query(acceptOrder, acceptOrderValues)
+          .then(() => {
+            res.redirect('/restaurant');
+          })
+      })
+      .catch(err => console.log(err));
+  });
+
   router.get('/', (req, res) => {
       // Data object to be passed into EJS
       let data = {
@@ -39,5 +93,7 @@ module.exports = (db) => {
         console.log(data.orders);
       })
   });
+
+
   return router;
 };

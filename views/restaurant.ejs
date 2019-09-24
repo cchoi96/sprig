@@ -28,7 +28,7 @@
             } else if (individualOrder.status === 'pending') {
               pendingOrders.push(individualOrder);
             } else {
-              completed.push(individualOrder);
+              completedOrders.push(individualOrder);
             }
           }
       } %>
@@ -40,6 +40,11 @@
             <% for (let item of uncompletedOrder.items) { %>
               <li><%= item.name %>: <%= item.quantity %></li>
             <% } %>
+            <form method='POST' action='/restaurant/accept'>
+              <input type="number" name='minutesToComplete' min='0'/> minutes
+              <input type='hidden' name='orderId' value='<%=uncompletedOrder.id %>'/>
+              <button type='submit'>Accept</button>
+            </form>
           <% } %>
 
         <h2>Pending Orders</h2>
@@ -48,6 +53,10 @@
           <% for (let item of pendingOrder.items) { %>
             <li><%= item.name %>: <%= item.quantity %></li>
           <% } %>
+          <form method='POST' action='/restaurant/complete'>
+            <input type='hidden' name='orderId' value='<%= pendingOrder.id %>'/>
+            <button type='submit'>Complete</button>
+          </form>
         <% } %>
 
         <h2>Completed Orders</h2>
@@ -59,6 +68,7 @@
         <% } %>
       </div>
   </main>
+
 </body>
 
 </html>
