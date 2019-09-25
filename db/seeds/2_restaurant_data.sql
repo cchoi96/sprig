@@ -25,4 +25,20 @@ VALUES
   'Barbeque',
   6476378535,
   'eddy@eaglebbq.net'
+),
+(
+  'FFFFFF',
+  'Hokkaido Classic Sushi',
+  '444 Seaweed Street',
+  'Japanese',
+  6476378535,
+  'orders@hokkaidosushi.com'
+),
+(
+  'HHHHHH',
+  'Sinistro''s Coffee',
+  '22 Caffeine Road',
+  'Coffee',
+  6476378535,
+  'john@sinistro.com'
 );
