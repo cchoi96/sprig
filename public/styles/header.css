@@ -155,8 +155,12 @@ form > .hover:hover:before {
 }
 
 @media only screen and (max-width: 768px) {
-  .container {
+  .container, #end {
     flex-direction: column;
+  }
+
+  #end {
+    align-items: flex-end;
   }
 
   #responsive {
