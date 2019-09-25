@@ -1,23 +1,104 @@
 main {
-  text-align: center;
-  width: 60%;
+  text-align: left;
+  width: 800px;
   margin: 0 auto;
 }
 
 .menu {
   border-radius: 10px;
-  background-color:#68d391;
-  color: #FFFFFF;
+  color: #222222;
+  width: 550px;
+  margin: 0 auto;
 }
 
-ul {
+.menu ul {
   list-style-type: none;
   padding: 0;
   font-size: 1.3em;
+  line-height: 1em;
 }
 
 .menu h3 {
-  padding: 50px 0 50px 0;
-  font-size: 2.5em;
+  padding: 30px 0 30px 0;
+  font-size: 2em;
   border-bottom: 2px solid #FFFFFF;
+  text-align: center;
+  border-bottom: 2px solid #68d391;
+  border-top: 2px solid #68d391;
+}
+
+.restaurantTitle {
+  position: relative;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.restaurantTitle img {
+  background: linear-gradient(to bottom, transparent 0%, #222222 400%);
+  width: 70%;
+  height: 60%;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.restaurantName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.itemName, .itemDescription {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemDescription p {
+  width: 70%;
+}
+
+.iterator {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.iterator input {
+  width: 40px;
+  font-size: 0.9em;
+  height: 20px;
+  border: 1px solid #68d391;
+  color: #68d391;
+}
+
+.iterator input:focus {
+  outline: none !important;
+}
+
+.iterator button, .menu #submit {
+  font-size: 1.05em;
+  background: inherit;
+  border: none;
+  color: #68d391;
+}
+
+.iterator button:hover {
+  cursor: pointer;
+}
+
+.menu #submit {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+  font-size: 1.3em;
+  border: 1px solid #68d391;
+  border-radius: 5px;
+  transition: 0.1s ease-out;
+}
+
+.menu #submit:hover {
+  color: #f8f9fa;
+  background-color: #68d391;
+  cursor: pointer;
 }

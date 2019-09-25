@@ -15,8 +15,9 @@
   <% include partials/_header %>
   <main>
 
-    <div>
-      <h1 id='restaurantName'><%= restaurantName %></h1>
+    <div class='restaurantTitle'>
+      <img src='<%= restaurantData[0].image_url %>' />
+      <h1 class='restaurantName'><%= restaurantName %></h1>
     </div>
 
     <div class="menu">
@@ -25,26 +26,30 @@
 
       <!-- Order information for each restaurant sent to /browse/cart -->
       <form method="POST" action="/browse/cart">
-        <input type='hidden' name='restaurantName' value='<%= restaurantName %>'/>
-        <input type='hidden' name='restaurantId' value='<%= restaurantData[0].restaurant_id %>'/>
+        <input type='hidden' name='restaurantName' value='<%= restaurantName %>' />
+        <input type='hidden' name='restaurantId' value='<%= restaurantData[0].restaurant_id %>' />
         <ul>
-        <% for (let restaurantItem of restaurantData) { %>
+          <% for (let restaurantItem of restaurantData) { %>
           <li>
-            <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>'/>
-            <input type='hidden' name='itemId' value='<%= (restaurantItem.id) %>'/>
-            <input type='hidden' name='item' value='<%= restaurantItem.name %>'/>
-            <h4><%= restaurantItem.name %></h4>
-            <p><%= restaurantItem.description %></p>
-            <p>$<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %></p>
-            <div class='iterator'>
-              <button class='minus' disabled="disabled">-</button>
-              <input type='number' value='0' min='0' name='quantity' class='menu-item-input'/>
-              <button class='plus'>+</button>
+            <input type='hidden' name='cost' value='<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %>' />
+            <input type='hidden' name='itemId' value='<%= (restaurantItem.id) %>' />
+            <input type='hidden' name='item' value='<%= restaurantItem.name %>' />
+            <div class='itemName'>
+              <h4><%= restaurantItem.name %></h4>
+              <p>$<%= (restaurantItem.cost_in_cents / 100).toFixed(2) %></p>
+            </div>
+            <div class='itemDescription'>
+              <p><%= restaurantItem.description %></p>
+              <div class='iterator'>
+                <button class='minus' disabled="disabled">-</button>
+                <input type='number' value='0' min='0' name='quantity' class='menu-item-input' />
+                <button class='plus'>+</button>
+              </div>
             </div>
           </li>
-            <% } %>
-          </ul>
-          <button id='submit' type="submit" value="submit">Submit</button>
+          <% } %>
+        </ul>
+        <button id='submit' type="submit" value="submit">Submit</button>
       </form>
 
     </div>
