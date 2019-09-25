@@ -46,11 +46,23 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-shadow: 0.5px 0.5px 0px #000000;
+}
+
+.menu li {
+  margin-bottom: 2px;
+}
+
+.menu li:hover {
+  border: 1px solid #68d391;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .itemName, .itemDescription {
   display: flex;
   justify-content: space-between;
+  padding: 0 10px 0 10px;
 }
 
 .itemDescription p {
@@ -92,7 +104,7 @@ main {
   display: block;
   margin: 0 auto;
   font-size: 1.3em;
-  border: 1px solid #68d391;
+  border: 2px solid #68d391;
   border-radius: 5px;
   transition: 0.1s ease-out;
 }

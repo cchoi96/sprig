@@ -22,7 +22,7 @@ body {
   z-index: 1;
   margin: 0 auto;
   position: absolute;
-  top: 250px;
+  top: 300px;
 }
 
 #main-info h1 {
@@ -49,19 +49,19 @@ body {
 
 .img-right .one {
   width: 130px;
-  top: 180px;
+  top: 200px;
   right: 290px;
 }
 
 .img-right .one-two {
   width: 130px;
-  top: 233px;
+  top: 253px;
   right: 290px;
 }
 
 .img-right .two {
   width: 170px;
-  top: 330px;
+  top: 350px;
   right: 120px;
 }
 
@@ -71,13 +71,13 @@ body {
 
 .img-left .one {
   width: 150px;
-  top: 180px;
+  top: 200px;
   left: 270px;
 }
 
 .img-left .two {
   width: 230px;
-  top: 270px;
+  top: 290px;
   left: 100px;
 }
 

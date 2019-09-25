@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href='/css/show.css' rel='stylesheet' type='text/css'>
+  <link href='/styles/cart.css' rel='stylesheet' type='text/css'>
   <title>Cart</title>
 </head>
 
@@ -27,10 +27,11 @@
   <% } %>
 
   <main>
-    <h1>Cart</h1>
+    <h1>CART</h1>
     <!-- Takes the order information and passes it into /cart -->
     <form method='POST' action='/cart' id='form'>
       <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>'/>
+      <div class='orderData'></div>
       <div id='cart-buttons'>
         <button><a href="/browse">Get More Food</a></button>
         <button type='submit'>Place Order</button>
@@ -77,35 +78,45 @@
   // Setting the innerHTML for the cart page
   // Creating an array of keys for each layer of the object, then rendering to screen
   let combinedOrder = JSON.parse(sessionStorage.orderObj);
-  console.log(combinedOrder);
   let combinedOrderKeys = Object.keys(combinedOrder);
   for (let key of combinedOrderKeys) {
     // Checks if the combinedOrder restaurant has any orders at all, and if so, renders them to the page
     if (!jQuery.isEmptyObject(combinedOrder[key])) {
       let total = 0;
-      $('#form').append(`<h1>${key}</h1>`);
-      $('#form').append(`<ul>`)
+      $('.orderData').append(`<h2>${key}</h2>`);
+      $('.orderData').append(`<ul>`)
       let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
       for (let restaurantKey of combinedRestaurantKeys) {
-        $('#form').append(`<li>${restaurantKey}</li>`);
-        $('#form').append(`<li>${combinedOrder[key][restaurantKey].price}</li>`);
-        $('#form').append(`<li>${combinedOrder[key][restaurantKey].quantity}</li>`);
+        $('.orderData').append(`
+        <li>
+          <div class='orderItem'>
+            <h4>(${combinedOrder[key][restaurantKey].quantity}) ${restaurantKey}</h4>
+            <p>${combinedOrder[key][restaurantKey].price}</p>
+          </div>
+        </li>`);
         total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key][restaurantKey].quantity);
       }
-      $('#form').append(`<li>${total.toFixed(2)}</li>`);
-      $('#form').append('</ul>');
+      $('.orderData').append(`
+        <li class='total subtotal'>
+          Subtotal: ${total.toFixed(2)}
+        </li>
+        <li class='total'>
+          Tax: ${(total * 0.13).toFixed(2)}
+        </li>
+        <li class='total finalTotal'>
+          Total: ${(total * 1.13).toFixed(2)}
+        </li>`);
+      $('.orderData').append('</ul>');
     }
   }
 
   // Sends info of the order to the confirmation page
-  $('#form').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
+  $('.orderData').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
 
   // Clears sessionStorage once it is submitted
-  $('#form').submit(() => {
+  $('.orderData').submit(() => {
     sessionStorage.clear();
   });
-
-  
 
 </script>
 
