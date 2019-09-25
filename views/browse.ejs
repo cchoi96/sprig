@@ -13,11 +13,11 @@
 
   <!-- Leaflet Requirements -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -33,15 +33,19 @@
         <div id='restaurants-list'>
           <ul>
             <% for (let restaurant of restaurants) { %>
-              <% let restaurantUrl = restaurant.name.split(' ').join('%20'); %>
-              <a href="/browse/<%= restaurantUrl %>">
-                <li class='individual-restaurant'>
-                    <h3><%= restaurant.name %></h3>
-                    <p><%= restaurant.type %></p>
-                    <p><%= restaurant.location %></p>
-                    <p><%= restaurant.phone %></p>
-                  </li>
-              </a>
+            <% let restaurantUrl = restaurant.name.split(' ').join('%20'); %>
+            <a href="/browse/<%= restaurantUrl %>">
+              <li class='individual-restaurant'>
+                <div class='individual-restaurant-img'>
+                  <img src='<%=restaurant.image_url %>' />
+                </div>
+                <div class='individual-restaurant-info'>
+                  <h3><%= restaurant.name %></h3>
+                  <p><%= restaurant.type %></p>
+                  <p><%= restaurant.location %></p>
+                </div>
+              </li>
+            </a>
             <% } %>
           </ul>
         </div>
@@ -55,8 +59,8 @@
     let mymap = L.map('browse-map-section').setView([43.6532, -79.3832], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(mymap);
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
 
     L.marker([51.5, -0.09]).addTo(mymap);
   </script>
