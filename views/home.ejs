@@ -17,47 +17,55 @@
   <% include partials/_header.ejs %>
   <div id='main-page'>
     <div class='img-left'>
-      <img class='main-img animated bounceInLeft slow' src='../assets/img/burger.png' />
+      <img class='main-img animated bounceInRight slow one' src='../assets/img/nacho.png' />
+      <img class='main-img animated bounceInLeft slow two' src='../assets/img/ramen.png' />
     </div>
     <div id="main-info">
       <h1>Find restaurants you <span>love</span></h1>
       <% include partials/_form.ejs %>
     </div>
     <div class='img-right'>
-      <img class='main-img animated bounceInRight slow' id='right' src='../assets/img/nacho.png' />
+      <img class='main-img animated slideInDown up one' src='../assets/img/burger-bun.png' />
+      <img class='main-img animated slideInUp up one-two' src='../assets/img/burger.png' />
+      <img class='main-img animated bounceInRight slow up two' src='../assets/img/sushi.png' />
     </div>
   </div>
   <div class='main-info'>
     <h1>Your food. Your choice.</h1>
     <div class='main-info-section'>
       <div class='main-info-1'>
-        <h2>Skip the wait</h2>
-        <img class='skip' src="../assets/img/cut-in-line.gif">
+        <div class='info'>
+          <h3>Skip the wait</h1>
+          <p>Feel like a rockstar when you skip the line and save a ton of time.</p>
+        </div>
+        <div class='info-img'>
+          <img class='skip'
+            src='https://lh3.googleusercontent.com/0fqIfRk_rhmlnhma7-_JYKCVKApIUJTLju08oqn2-E-n8udcsgW01dQGezyPj-mL7IiQgJf32aqyQwFP2B1gs8i3j0Y=s0' />
+        </div>
       </div>
       <div class='main-info-2'>
-        <h2>Hundreds of restaurants</h2>
-        <img class='skip' src="../assets/img/dog-pizza.gif">
+        <div class='info-img'>
+            <img class='skip'
+            src="https://lh3.googleusercontent.com/TMSpTiu1LhXzwn8kcqyIt0l7w3e6SF7rUsmQ1vzl2klJbsI_GYrZVUj0Ujt9LQTOpomibMItV-iZ4ZBW8nRVl0TbwcU=s0" />
+        </div>
+        <div class='info'>
+            <h3>Hundreds of restaurants</h1>
+            <p>Whatever you decide, Sprig has the restaurant for you, at your fingertips. Currently the home of over 100 restaurants.</p>
+          </div>
       </div>
       <div class='main-info-3'>
-        <h2>Earn rewards</h2>
-        <img class='skip' src="../assets/img/treat-yourself.gif">
+        <div class='info'>
+          <h3>Earn rewards</h1>
+          <p>Every order earns you amazing rewards, which you can redeem for discounts and free food at your favourite local spots.</p>
+        </div>
+        <div class='info-img'>
+          <img class='skip'
+            src="https://lh3.googleusercontent.com/YKNtVCxFxxIFZg4wg9-XlmVyWQAdcnNHaySE0DzAH1mZ5cIXPrjnAq-ruPCkYFO_RUKFlXqpjDML7p0ZxWd6MMHXQQ=s0" />
+        </div>
       </div>
     </div>
   </div>
-  <div class='in-depth-info'>
-    <div class='in-depth-1'>
-      <div class='in-depth-desc'>
-
-      </div>
-    <div class='in-depth-2'>
-      <div class='in-depth-desc'>
-
-      </div>
-      <div class='in-depth-desc'>
-
-      </div>
-    </div>
-  </div>
+  <% include partials/_footer.ejs %>
 </body>
 
 </html>
