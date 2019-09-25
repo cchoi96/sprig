@@ -4,7 +4,7 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const smsSource = `+1${process.env.TWILIO_PHONE_NUMBER}`;
 const client = require('twilio')(accountSid, authToken);
 
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -37,7 +37,7 @@ module.exports = (db) => {
         db
           .query(acceptOrder, acceptOrderValues)
           .then(() => {
-            
+
           // get the user information to determine phone #
           const userPhoneNumberQuery =
           `
@@ -49,11 +49,15 @@ module.exports = (db) => {
           db
             .query(userPhoneNumberQuery, queryParams)
             .then(resultSet => {
-              console.log(`+1${resultSet.rows[0].phone_number}`);
+              let destination = `+1${resultSet.rows[0].phone_number}`;
+              let minutes = 10;
+              if (req.body.minutesToComplete !== "") {
+                minutes = parseInt(req.body.minutesToComplete);
+              }
               client.messages.create({
-                body: `Your order will be ready in ${req.body.minutesToComplete} minutes!`,
-                from: `+1${phoneNumber}`,
-                to: `+16476378535`
+                body: `Your order will be ready in ${minutes} minutes!`,
+                from: smsSource,
+                to: destination
               })
               .then(message => console.log(message.sid))
               .catch(err => console.error(err));
@@ -97,12 +101,13 @@ module.exports = (db) => {
           db
             .query(userPhoneNumberQuery, queryParams)
             .then(resultSet => {
+              let destination = `+1${resultSet.rows[0].phone_number}`;
               console.log(`env phone number: ${phoneNumber}`);
               // `+1${resultSet.rows[0].phoneNumber}`
               client.messages.create({
                 body: `Your order is complete!`,
-                from: `+1${phoneNumber}`,
-                to: `+16476378535`
+                from: smsSource,
+                to: destination
               })
               .then(message => console.log(message.sid))
               .catch(err => console.error(err));

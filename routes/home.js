@@ -1,5 +1,6 @@
 const express = require('express');
 const router  = express.Router();
+const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const axios = require('axios');
 // --------------------------------------------------------------------------------------------------------------------
@@ -38,7 +39,22 @@ module.exports = (db) => {
   });
 
   router.post('/', (req, res) => {
-    // const searchQuery = res.body.searchquery;
+    if (req.body.searchTerm !== "") {
+      const searchValue = [req.body.search_term];
+      const queryString =
+      `
+      SELECT *
+      FROM restaurants
+      WHERE levenshtein(name, $1) <= 6
+      OR levenshtein(type, $1) <= 6
+      `;
+      db.query(queryString, searchValue)
+        .then(resultSet => {
+          data.restaurants = resultSet.rows;
+          res.render('browse', data);
+        })
+        .catch(err => console.error(err));
+    }
     // const googleSearchQuery = searchQuery.replace(/ /g, '+');
     // const apiKey = process.env.MAPS_API_KEY;
   });

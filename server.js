@@ -44,6 +44,7 @@ const sms = require('./routes/sms');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use("/home", home(db));
 app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
