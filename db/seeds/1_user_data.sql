@@ -40,4 +40,28 @@ VALUES
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
   4169067445,
   TRUE
-);
+),
+(
+  'FFFFFF',
+  'James Tran',
+  'james@redspin.net',
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  6476378535,
+  TRUE
+),
+(
+  'GGGGGG',
+  'Tommy Chang',
+  'tom@jerry.com',
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  6476378535,
+  FALSE
+),
+(
+  'HHHHHH',
+  'John Athanasidis',
+  'john@bluebird.com',
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  6476378535,
+  TRUE
+)

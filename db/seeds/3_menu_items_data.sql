@@ -104,5 +104,74 @@ VALUES
   'For two or more. Includes two dinner rolls, a large salad, our roasted potatoes and rice and peas.',
   2199,
   true
-);
-
+),
+(
+  4,
+  'California Roll',
+  'A classic roll with cucumber, Newfoundland crab and fish roe.',
+  699,
+  true
+),
+(
+  4,
+  'Edamame',
+  'A great appetizer. Soybeans boiled in their shells and lightly salted. Bet you can''t eat just one!',
+  499,
+  true
+),
+(
+  4,
+  'Tuna Sashimi on Rice',
+  'West coast tuna on rice seasoned with vinegar and sesame.',
+  699,
+  true
+),
+(
+  4,
+  'Chicken Karaage',
+  'Chicken covered with a potato starch batter and fried in oil.',
+  899,
+  true
+),
+(
+  5,
+  'Americano',
+  'Two espresso shots with water added.',
+  299,
+  true
+),
+(
+  5,
+  'Single Espresso',
+  'A shot of espresso, the perfect way to start, continue or end the day in our opinion.',
+  129,
+  true
+),
+(
+  5,
+  'Double Espresso',
+  'Double it up for twice the caffeine!',
+  219,
+  true
+),
+(
+  5,
+  'Cheese Scone',
+  'Homemade by John''s mother Effie every day. Delicious.',
+  379,
+  true
+),
+(
+  5,
+  'Blueberry Scone',
+  'Blueberry flavoured scone, freshly made every day.',
+  379,
+  true
+),
+(
+  5,
+  'Maple Syrup Shortbread',
+  'Scottish-style shortbread flavoured with a hint of maple syrup.',
+  379,
+  true
+)
