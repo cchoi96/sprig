@@ -1,0 +1,12 @@
+main {
+  text-align: center;
+  margin: 20vh 0 45vh 0;
+}
+
+main a {
+  color: #000000;
+}
+
+main a:hover {
+  color: #68d391;
+}
