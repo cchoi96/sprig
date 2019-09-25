@@ -6,17 +6,21 @@
 
 #browse-section {
   width: 30%;
-  border: 1px solid black;
 }
 
 #browse-section h2 {
   text-align: center;
-  border-bottom: 1px solid black;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #FFFFFF;
+  background-color: #68d391;
 }
 
 #browse-section a {
   text-decoration: none;
+  text-align: right;
 }
 
 #browse-section ul {
@@ -24,18 +28,43 @@
   display: flex;
   width: 100%;
   flex-direction: column;
+  overflow: scroll;
+  height: 63vh;
+  margin-top: 0;
 }
 
 #browse-section li {  
+  background-color: #FFFFFF;
   width: 100%;
   padding: 10px;
+  margin-top: 0;
   list-style-type: none;
   color: black;
-  border-bottom: 1px solid black;
+  text-align: center;
+  line-height: 10px;
 }
 
 
+#browse-section li:hover {
+  border: 1px solid #68d391;
+}
+
+#browse-section li img{  
+  width: 200px;
+  border-radius: 5px;
+}
+
 #browse-map-section {
-  height: 100vh;
+  height: 70vh;
   width: 70%;
+}
+
+@media only screen and (max-width: 800px) {
+  #browse-map-section {
+    display: none;
+  }
+  #browse-section {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
