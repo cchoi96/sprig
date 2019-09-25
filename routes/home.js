@@ -40,17 +40,19 @@ module.exports = (db) => {
 
   router.post('/', (req, res) => {
     if (req.body.searchTerm !== "") {
-      const searchValue = [req.body.search_term];
+      const searchValue = [req.body.search_term.toLowerCase(), `%${req.body.search_term.toLowerCase()}%`];
       const queryString =
       `
       SELECT *
       FROM restaurants
-      WHERE levenshtein(name, $1) <= 6
-      OR levenshtein(type, $1) <= 6
+      WHERE levenshtein(lower(restaurants.name), $1) <= 3
+      OR levenshtein(lower(restaurants.type), $1) <= 3
+      OR lower(restaurants.name) LIKE $2
       `;
       db.query(queryString, searchValue)
         .then(resultSet => {
           data.restaurants = resultSet.rows;
+          console.log(data.restaurants);
           res.render('browse', data);
         })
         .catch(err => console.error(err));

@@ -1,0 +1,23 @@
+main {
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.menu {
+  border-radius: 10px;
+  background-color:#68d391;
+  color: #FFFFFF;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.3em;
+}
+
+.menu h3 {
+  padding: 50px 0 50px 0;
+  font-size: 2.5em;
+  border-bottom: 2px solid #FFFFFF;
+}
