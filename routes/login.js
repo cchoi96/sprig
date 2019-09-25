@@ -12,25 +12,34 @@ router.use(cookieSession({
 }));
 
 module.exports = (db) => {
-  // Data object to be passed into EJS
-  let data = {
-    user: '',
-    error: {
-      registerError: false,
-      loginError: false
-    },
-    email: ''
-  };
-
   // @route   GET /login
   // @ desc   Render login page
   router.get('/', (req, res) => {
+    // Data object to be passed into EJS
+    let data = {
+      user: '',
+      error: {
+        registerError: false,
+        loginError: false
+      },
+      email: ''
+    };
     res.render('login', data);
   });
 
   // @route   POST /login
   // @ desc   Send user data through login page
   router.post('/', (req, res) => {
+    // Data object to be passed into EJS
+    let data = {
+      user: '',
+      error: {
+        registerError: false,
+        loginError: false
+      },
+      email: ''
+    };
+
     // Checking if forms are filled out
     let emptyField = req.body.email.length === 0 || req.body.password.length === 0 ? true : false;
 
