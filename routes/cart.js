@@ -4,7 +4,7 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const smsSource = `+1${process.env.TWILIO_PHONE_NUMBER}`;
 const client = require('twilio')(accountSid, authToken);
 
 // const { generateRandomSMSId } = require('../public/scripts/helpers');
@@ -61,16 +61,33 @@ const client = require('twilio')(accountSid, authToken);
         }
         Promise.all(queries)
           .then(insertedOrderData => {
-            let messageOrderId = insertedOrderData[0].rows[0].order_id;
-            // will add order details when core done
-            client.messages.create({
-              body: `You have a new message!\nPlease check for order# ${messageOrderId} in your Sprig account!`,
-              from: `+1${phoneNumber}`,
-              to: +17788469842
-            })
-            .then(message => message.sid)
-            .catch(err => console.error(err));
+            let orderId = insertedOrderData[0].rows[0].order_id;
+            let queryString =
+            `
+            SELECT menu_items.name, order_items.quantity, order_items.order_id
+            FROM order_items
+            JOIN menu_items ON order_items.menu_item_id = menu_items.id
+            WHERE order_items.order_id = $1
+            `;
+            let queryParams = [orderId];
+            db.query(queryString, queryParams)
+              .then(resultSet => {
+                let outgoingMessage = `New order details:\n=================\n`;
+                outgoingMessage += `Order #${resultSet.rows[0].order_id}:\n`
+                for (row of resultSet.rows) {
+                  outgoingMessage += `${row.quantity} ${row.name}\n`;
+                }
+                outgoingMessage += `Please update this order by logging into your Sprig account.`;
+                client.messages.create({
+                  body: outgoingMessage,
+                  from: smsSource,
+                  to: `+16476378535`
+                })
+                .then(message => message.sid)
+                .catch(err => console.error(err));
+              })
           })
+
           .catch(err => {
             console.log(`ERROR: ${err}`);
           })
