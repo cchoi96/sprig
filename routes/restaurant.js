@@ -29,7 +29,7 @@ module.exports = (db) => {
       .query(findUser, findUserValues)
       .then(userData => {
         let userId = userData.rows[0].customer_id;
-        console.log('userdata', userData.rows[0]);
+        console.log('userdata', userData.rows[0].customer_id);
         const acceptOrder = `UPDATE orders
                            SET order_status = 'pending'
                            WHERE orders.id = $1`;
@@ -41,16 +41,22 @@ module.exports = (db) => {
           // get the user information to determine phone #
           const userPhoneNumberQuery =
           `
-          SELECT users.phone_number FROM users
+          SELECT phone_number FROM users
           JOIN orders ON users.id = orders.customer_id
-          WHERE orders.customer_id = $1
-          AND orders.id = $2
+          WHERE orders.id = $1;
           `;
-          const queryParams = [req.session.user_id, req.body.orderId]
+          const queryParams = [req.body.orderId]
           db
             .query(userPhoneNumberQuery, queryParams)
             .then(resultSet => {
-              console.log(resultSet.rows[0].phoneNumber);
+              console.log(`+1${resultSet.rows[0].phone_number}`);
+              client.messages.create({
+                body: `Your order will be ready in ${req.body.minutesToComplete} minutes!`,
+                from: `+1${phoneNumber}`,
+                to: `+16476378535`
+              })
+              .then(message => console.log(message.sid))
+              .catch(err => console.error(err));
             })
             .catch(err => console.error(err));
             res.redirect('/restaurant');
@@ -80,6 +86,28 @@ module.exports = (db) => {
         db
           .query(acceptOrder, acceptOrderValues)
           .then(() => {
+          // get the user information to determine phone #
+          const userPhoneNumberQuery =
+          `
+          SELECT phone_number FROM users
+          JOIN orders ON users.id = orders.customer_id
+          WHERE orders.id = $1;
+          `;
+          const queryParams = [req.body.orderId]
+          db
+            .query(userPhoneNumberQuery, queryParams)
+            .then(resultSet => {
+              console.log(`env phone number: ${phoneNumber}`);
+              // `+1${resultSet.rows[0].phoneNumber}`
+              client.messages.create({
+                body: `Your order is complete!`,
+                from: `+1${phoneNumber}`,
+                to: `+16476378535`
+              })
+              .then(message => console.log(message.sid))
+              .catch(err => console.error(err));
+            })
+            .catch(err => console.error(err));
             res.redirect('/restaurant');
           })
       })
