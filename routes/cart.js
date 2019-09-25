@@ -39,13 +39,6 @@ const client = require('twilio')(accountSid, authToken);
     };
     // const restaurantInfo = JSON.parse(req.body.orderInfo);
     const restaurantAndItemIds = JSON.parse(req.body.orderData);
-    console.log(restaurantAndItemIds);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> e3598cdd4ad3158ba58d472ba0ba49d32cfc0099
     let restaurantId = restaurantAndItemIds.restaurantId;
     let orderIdQuery = `INSERT INTO orders(customer_id, restaurant_id)
                               VALUES($1, $2)
