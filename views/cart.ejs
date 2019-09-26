@@ -15,14 +15,14 @@
   <% include partials/_header %>
 
   <% for (let i = 0; i < orderInfo.item.length; i++){ %>
-   <!-- If the quantity of the order is greater than 0, outputs it as HTML -->
-    <% if (orderInfo.quantity[i] > 0) { %>
-    <li style="display: none;">
-      <p class='order-items'><%= orderInfo.item[i] %></p>
-      <p class='price-items'><%= orderInfo.cost[i] %></p>
-      <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
-    </li>
-    <% } %>
+  <!-- If the quantity of the order is greater than 0, outputs it as HTML -->
+  <% if (orderInfo.quantity[i] > 0) { %>
+  <li style="display: none;">
+    <p class='order-items'><%= orderInfo.item[i] %></p>
+    <p class='price-items'><%= orderInfo.cost[i] %></p>
+    <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
+  </li>
+  <% } %>
 
   <% } %>
 
@@ -30,20 +30,22 @@
     <h1>CART</h1>
     <!-- Takes the order information and passes it into /cart -->
     <form method='POST' action='/cart' id='form'>
-      <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>'/>
+      <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>' />
       <div class='orderData'></div>
       <div id='cart-buttons'>
         <button><a href="/browse">Get More Food</a></button>
-        <button type='submit'>Place Order</button>
+        <button id='placeOrder' type='submit'>Place Order</button>
       </div>
     </form>
+    <div id='checkout'>
+      <button id='buyButton'>Pay</button>
+    </div>
   </main>
   <% include partials/_footer.ejs %>
 </body>
 
 <!-- jQuery -->
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-
 <!-- Order Rendering Script -->
 <script>
   let restaurantName = document.getElementById('restaurantName').innerHTML;
@@ -51,6 +53,7 @@
   let prices = document.getElementsByClassName('price-items');
   let quantities = document.getElementsByClassName('quantity-items');
   let cartInfo = document.getElementById('form');
+
 
   // Checks if sessionStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
   if (!sessionStorage.orderObj) {
@@ -79,6 +82,7 @@
   // Creating an array of keys for each layer of the object, then rendering to screen
   let combinedOrder = JSON.parse(sessionStorage.orderObj);
   let combinedOrderKeys = Object.keys(combinedOrder);
+  let grandTotal = 0;
   for (let key of combinedOrderKeys) {
     // Checks if the combinedOrder restaurant has any orders at all, and if so, renders them to the page
     if (!jQuery.isEmptyObject(combinedOrder[key])) {
@@ -90,25 +94,37 @@
         $('.orderData').append(`
         <li>
           <div class='orderItem'>
-            <h4>(${combinedOrder[key][restaurantKey].quantity}) ${restaurantKey}</h4>
-            <p>${combinedOrder[key][restaurantKey].price}</p>
+            <h4 class='quantity'>${combinedOrder[key][restaurantKey].quantity}</h4>
+            <h4 class='food-item'>${restaurantKey}</h4>
+            <p class='item-price'>${combinedOrder[key][restaurantKey].price}</p>
           </div>
         </li>`);
-        total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key][restaurantKey].quantity);
+        total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key]
+        [restaurantKey].quantity);
       }
       $('.orderData').append(`
         <li class='total subtotal'>
           Subtotal: ${total.toFixed(2)}
         </li>
-        <li class='total'>
+        <li class='total tax'>
           Tax: ${(total * 0.13).toFixed(2)}
         </li>
         <li class='total finalTotal'>
           Total: ${(total * 1.13).toFixed(2)}
         </li>`);
       $('.orderData').append('</ul>');
+      grandTotal += total;
     }
   }
+
+  $('.orderData').append(`
+    <div id='grandTotal' style='visibility: hidden'>
+      ${(grandTotal * 1.13).toFixed(2)}
+    </div>
+    <div id='grandTax' style='visibility: hidden'>
+      ${(grandTotal * 0.13).toFixed(2)}
+    </div>
+      `)
 
   // Sends info of the order to the confirmation page
   $('.orderData').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
@@ -119,5 +135,6 @@
   });
 
 </script>
+<script src='/scripts/googlePay.js'></script>
 
 </html>
