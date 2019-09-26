@@ -20,11 +20,11 @@ main h1 {
 .orderItems {
   display: flex;
   flex-direction: column;
-  text-align: right;
   justify-content: center;
 }
 
 .unacceptedOrder, .pendingOrder, .completedOrder {
+  display: flex;
   width: 30vw;
   margin: 0 auto;
   justify-content: space-between;

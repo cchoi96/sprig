@@ -151,3 +151,12 @@ form > .hover:hover:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+
+#userImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
