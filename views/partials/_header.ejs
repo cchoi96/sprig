@@ -6,9 +6,6 @@
   <ul class='container'>
     <div id='responsive'>
       <div id='logo'><a href='/' id="logo-link">Sprig</a></div>
-      <div class="link-toggle">
-        <i class="fas fa-bars" id='hamburger'></i>
-      </div>
     </div>
     <li id='my-urls' class='hamburger-item'><a href='/browse'>Browse</a></li>
     <% if (user) { %>
@@ -52,14 +49,3 @@
   <p id='userID'>Logged in as: <%= email %></p>
 </div>
 <% } %>
-
-<script>
-  const classToggle = () => {
-    const navs = document.querySelectorAll('.hamburger-item')
-
-    navs.forEach(nav => nav.classList.toggle('hamburger-menu'));
-  }
-
-  document.querySelector('.link-toggle')
-    .addEventListener('click', classToggle);
-</script>

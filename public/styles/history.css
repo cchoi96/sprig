@@ -1,3 +1,48 @@
 main {
   text-align: center;
+  width: 800px;
+  margin: 0 auto;
 }
+
+main ul {
+  padding: 0;
+}
+
+main li {
+  list-style-type: none;
+}
+
+main h1 {
+  padding: 30px 0 30px 0;
+  border-bottom: 2px solid #68d391;
+}
+
+.orderItems {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  justify-content: center;
+}
+
+.unacceptedOrder, .pendingOrder, .completedOrder {
+  width: 30vw;
+  margin: 0 auto;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+  font-size: 1.1em;
+}
+
+#unacceptedOrders:hover, #pendingOrders:hover, #completedOrders:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+

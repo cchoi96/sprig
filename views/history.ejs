@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="../public/styles/history.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/history.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -32,31 +32,58 @@
         }
       } %>
 
-    <h2>Unaccepted Orders</h2>
+    <h2 id='unacceptedOrders'>Unaccepted Orders</h2>
     <% for (let uncompletedOrder of uncompletedOrders) { %>
+    <div class='unacceptedOrder hidden'>
       <h3>#<%= uncompletedOrder.id %></h3>
-      <% for (let item of uncompletedOrder.items) { %>
-      <li><%= item.name %>: <%= item.quantity %></li>
-      <% } %>
+      <div class='orderItems'>
+        <% for (let item of uncompletedOrder.items) { %>
+        <li>(<%= item.quantity %>) <%= item.name %></li>
+        <% } %>
+      </div>
+    </div>
     <% } %>
 
-    <h2>Pending Orders</h2>
+    <h2 id='pendingOrders'>Pending Orders</h2>
     <% for (let pendingOrder of pendingOrders) { %>
+    <div class='pendingOrder hidden'>
       <h3>#<%= pendingOrder.id %></h3>
-      <% for (let item of pendingOrder.items) { %>
-      <li><%= item.name %>: <%= item.quantity %></li>
-      <% } %>
+      <div class='orderItems'>
+        <% for (let item of pendingOrder.items) { %>
+        <li><%= item.name %>: <%= item.quantity %></li>
+        <% } %>
+      </div>
+    </div>
     <% } %>
 
-    <h2>Completed Orders</h2>
-      <% for (let completedOrder of completedOrders) { %>
+    <h2 id='completedOrders'>Completed Orders</h2>
+    <% for (let completedOrder of completedOrders) { %>
+    <div class='completedOrder hidden'>
       <h3>#<%= completedOrder.id %></h3>
-      <% for (let item of completedOrder.items) { %>
-      <li><%= item.name %>: <%= item.quantity %></li>
-      <% } %>
+      <div class='orderItems'>
+        <% for (let item of completedOrder.items) { %>
+        <li><%= item.name %>: <%= item.quantity %></li>
+        <% } %>
+      </div>
+    </div>
     <% } %>
   </main>
   <% include partials/_footer.ejs %>
+
+  <script>
+    $('#unacceptedOrders').click(() => {
+      $('.unacceptedOrder').toggleClass('show');
+    });
+
+    $('#pendingOrders').click(() => {
+      $('.pendingOrder').toggleClass('show');
+    });
+
+    $('#completedOrders').click(() => {
+      $('.completedOrder').toggleClass('show');
+    });
+
+  </script>
 </body>
 
 </html>
