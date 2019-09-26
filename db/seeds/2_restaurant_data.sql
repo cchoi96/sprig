@@ -5,7 +5,7 @@ VALUES
 (
   'CCCCCC',
   'Greasy Burger Joint',
-  '336 Baloney Lane',
+  '1212 Dufferin St.',
   'Diner',
   6476378535,
   'greasy@burgers.net',
@@ -14,7 +14,7 @@ VALUES
 (
   'DDDDDD',
   'Santino Pizza',
-  '235 Pizza Road',
+  '235 Spadina Ave.',
   'Italian',
   6476378535,
   'santino@pizza.net',
@@ -23,7 +23,7 @@ VALUES
 (
   'EEEEEE',
   'Eddy the Eagle Barbeque',
-  '150 Noodles Drive',
+  '154 King St. W',
   'Barbeque',
   6476378535,
   'eddy@eaglebbq.net',
@@ -32,7 +32,7 @@ VALUES
 (
   'FFFFFF',
   'Hokkaido Classic Sushi',
-  '444 Seaweed Street',
+  '330 Roncesvalles Ave',
   'Japanese',
   6476378535,
   'orders@hokkaidosushi.com',
@@ -41,7 +41,7 @@ VALUES
 (
   'HHHHHH',
   'Sinistro''s Coffee',
-  '22 Caffeine Road',
+  '22 Portland St.',
   'Coffee',
   6476378535,
   'john@sinistro.com',
