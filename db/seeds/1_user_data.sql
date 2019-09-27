@@ -22,8 +22,7 @@ VALUES
   'Reggie Brown',
   'rbrown@gmail.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  -- 7788469842,
-  6476378535,
+  7788469842,
   TRUE
 ),
 (
