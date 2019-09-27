@@ -21,7 +21,8 @@ const client = require('twilio')(accountSid, authToken);
     // Data object to be passed into EJS
     let data = {
       user: req.session.user_id,
-      email: req.session.email
+      email: req.session.email,
+      image_url: req.session.image_url
     };
     res.render('confirmation', data);
   })
@@ -81,7 +82,7 @@ const client = require('twilio')(accountSid, authToken);
                 client.messages.create({
                   body: outgoingMessage,
                   from: smsSource,
-                  to: `+16476378535`
+                  to: `+17788469842`
                 })
                 .then(message => message.sid)
                 .catch(err => console.error(err));

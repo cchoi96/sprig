@@ -18,7 +18,7 @@ module.exports = (db) => {
     restaurants: '',
     restaurant: '',
     orderInfo: '',
-    email: ''
+    email: '',
   };
 
   // @route   GET /browse/cart
@@ -26,6 +26,7 @@ module.exports = (db) => {
   router.post('/cart', (req, res) => {
     if (req.session.user_id) {
       data.orderInfo = req.body;
+      data.image_url = req.session.image_url;
       res.render('cart', data);
     } else {
       res.redirect('/login');
@@ -47,6 +48,7 @@ module.exports = (db) => {
         data.restaurantName = restaurantName;
         data.restaurantUrlName = req.params.restaurant_id;
         data.restaurantData = restaurantData.rows;
+        data.image_url = req.session.image_url;
         res.render('individual_restaurant', data);
       })
       .catch(err => {
@@ -59,11 +61,13 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     data.email = req.session.email;
     data.user = req.session.user_id;
+    data.apiKey = `AIzaSyAmULEGIDZktxhRsLU6-DH4hrsiz4jiayQ`;
     const query = `SELECT * FROM restaurants`;
     db
       .query(query)
       .then(restaurantData => {
         data.restaurants = restaurantData.rows;
+        data.image_url = req.session.image_url;
         res.render('browse', data);
       })
       .catch(err => console.log(err));

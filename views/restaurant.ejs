@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="../public/styles/restaurant.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/restaurants.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -15,13 +15,13 @@
 <body>
   <% include partials/_header.ejs %>
   <main>
-    <h1>Order History</h3>
-      <div>
-        <% let uncompletedOrders = [];
+    <h1>Order History</h1>
+    <div>
+      <% let uncompletedOrders = [];
          let pendingOrders = [];
          let completedOrders = [];
       %>
-        <% if (orders) {
+      <% if (orders) {
           for (let individualOrder of orders) {
             if (individualOrder.status === 'not accepted') {
               uncompletedOrders.push(individualOrder);
@@ -32,41 +32,67 @@
             }
           }
       } %>
+      <div id='unacceptedOrders'>
         <h2>Unaccepted Orders</h2>
-          <% for (let uncompletedOrder of uncompletedOrders) { %>
-            <h3>#<%= uncompletedOrder.id %></h3>
-            <% for (let item of uncompletedOrder.items) { %>
-              <li><%= item.name %>: <%= item.quantity %></li>
-            <% } %>
-            <form method='POST' action='/restaurant/accept'>
-              <input type="number" name='minutesToComplete' min='0'/> minutes
-              <input type='hidden' name='orderId' value='<%=uncompletedOrder.id %>'/>
-              <button type='submit'>Accept</button>
-            </form>
+        <% for (let uncompletedOrder of uncompletedOrders) { %>
+        <div class='unacceptedOrder hidden'>
+          <h3>#<%= uncompletedOrder.id %></h3>
+          <% for (let item of uncompletedOrder.items) { %>
+          <li>(<%= item.quantity %>) <%= item.name %></li>
           <% } %>
-
-        <h2>Pending Orders</h2>
-        <% for (let pendingOrder of pendingOrders) { %>
-          <h3>#<%= pendingOrder.id %></h3>
-          <% for (let item of pendingOrder.items) { %>
-            <li><%= item.name %>: <%= item.quantity %></li>
-          <% } %>
-          <form method='POST' action='/restaurant/complete'>
-            <input type='hidden' name='orderId' value='<%= pendingOrder.id %>'/>
-            <button type='submit'>Complete</button>
+          <form method='POST' action='/restaurant/accept'>
+            <input type="number" name='minutesToComplete' min='0' /> minutes
+            <input type='hidden' name='orderId' value='<%=uncompletedOrder.id %>' />
+            <button type='submit'>Accept</button>
           </form>
-        <% } %>
-
-        <h2>Completed Orders</h2>
-        <% for (let completedOrder of completedOrders) { %>
-          <h3>#<%= completedOrder.id %></h3>
-          <% for (let item of completedOrder.items) { %>
-            <li><%= item.name %>: <%= item.quantity %></li>
-          <% } %>
+        </div>
         <% } %>
       </div>
+
+      <div id='pendingOrders'>
+        <h2>Pending Orders</h2>
+        <% for (let pendingOrder of pendingOrders) { %>
+        <div class='pendingOrder hidden'>
+          <h3>#<%= pendingOrder.id %></h3>
+          <% for (let item of pendingOrder.items) { %>
+          <li>(<%= item.quantity %>) <%= item.name %></li>
+          <% } %>
+          <form method='POST' action='/restaurant/complete'>
+            <input type='hidden' name='orderId' value='<%= pendingOrder.id %>' />
+            <button type='submit'>Complete</button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+
+      <div id='completedOrders'>
+        <h2>Completed Orders</h2>
+        <% for (let completedOrder of completedOrders) { %>
+        <div class='completedOrder hidden'>
+          <h3>#<%= completedOrder.id %></h3>
+          <% for (let item of completedOrder.items) { %>
+          <li>(<%= item.quantity %>) <%= item.name %></li>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
   </main>
   <% include partials/_footer.ejs %>
+
+  <script>
+      $('#unacceptedOrders h2').click(() => {
+      $('.unacceptedOrder').toggleClass('show');
+    });
+
+    $('#pendingOrders h2').click(() => {
+      $('.pendingOrder').toggleClass('show');
+    });
+
+    $('#completedOrders h2').click(() => {
+      $('.completedOrder').toggleClass('show');
+    });
+  </script>
 </body>
 
 </html>

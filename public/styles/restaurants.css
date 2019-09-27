@@ -1,6 +1,74 @@
-.complete-button {
+main {
+  text-align: center;
+  width: 800px;
+  margin: 0 auto;
+}
+
+main ul {
+  padding: 0;
+}
+
+#unacceptedOrders button, #pendingOrders button, #completedOrders button {
+  border: 1px solid #68d391;
+  border-radius: 5px;
+  font-size: 1.2em;
+  background: inherit;
+  color: #68d391;
+  margin: 0 7px 0 7px;
+  transition: 0.1s ease-out;
+  margin: 0 auto;
+  margin-top: 10px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+main input {
+  width: 100px;
+  margin: 0 auto;
+  margin-top: 10px;
+  border: 2px solid #68d391;
+  color: #68d391;
+}
+
+main input:focus {
+  outline: none !important;
+}
+
+#unacceptedOrders button:hover, #pendingOrders button:hover, #completedOrders button:hover {
+  cursor: pointer;
+  color: #f8f9fa;
   background-color: #68d391;
-  color: #FFF;
-  width: 120px;
-  height: 50px;
+}
+
+
+main li {
+  list-style-type: none;
+}
+
+main h1 {
+  padding: 30px 0 30px 0;
+  border-bottom: 2px solid #68d391;
+}
+
+.unacceptedOrder, .pendingOrder, .completedOrder {
+  width: 30vw;
+  margin: 0 auto;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+  font-size: 1.1em;
+}
+
+#unacceptedOrders:hover, #pendingOrders:hover, #completedOrders:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: flex;
+  flex-direction: column;
 }

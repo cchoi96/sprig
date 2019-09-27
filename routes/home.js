@@ -25,6 +25,7 @@ module.exports = (db) => {
         let response = user.rows[0];
         data.user = response.name;
         data.email = response.email;
+        data.image_url = req.session.image_url;
         res.render('home', data);
       })
       .catch(err => {

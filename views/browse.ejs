@@ -58,8 +58,8 @@
         const baseURL = `https://maps.googleapis.com/maps/api/geocode/json?`
         const city = `+Toronto,+ON`;
         const fullAddress = `${streetAddress}${city}`;
-        const key = `AIzaSyAmULEGIDZktxhRsLU6-DH4hrsiz4jiayQ`;
-        const url = `${baseURL}address=${fullAddress}&key=${key}`;
+        const apiKey = `AIzaSyAmULEGIDZktxhRsLU6-DH4hrsiz4jiayQ`;
+        const url = `${baseURL}address=${fullAddress}&key=${apiKey}`;
         // console.log(url);
         return fetch(url)
         .then(data => data.json())
@@ -96,8 +96,12 @@
           });
       }
   </script>
+<<<<<<< HEAD
   <script src="https://maps.googleapis.com/maps/api/js?key=PLACEHOLDER&callback=initMap"
   async defer></script>
+=======
+  <script src='https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap' async defer></script>
+>>>>>>> 4c60b569d168daa36c4d1e08b264605b5913c383
 
 </body>
 

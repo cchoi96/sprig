@@ -10,6 +10,11 @@
     <li id='my-urls' class='hamburger-item'><a href='/browse'>Browse</a></li>
     <% if (user) { %>
     <div id='end'>
+
+      <li class='button-left hamburger-item'>
+        <div id='userImg' style="background-image: url('<%= image_url %>');">
+        </div>
+      </li>
       <li class='button-left hamburger-item'>
         <a href='/history'>
           <button type="submit" class='hover'>
