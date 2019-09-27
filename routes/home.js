@@ -1,9 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const fetch = require('node-fetch');
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 // --------------------------------------------------------------------------------------------------------------------
 
 router.use(cookieSession({
@@ -40,40 +37,28 @@ module.exports = (db) => {
   });
 
   router.post('/', (req, res) => {
+    const searchValue = [req.body.search_term.toLowerCase(), `%${req.body.search_term.toLowerCase()}%`];
+    let queryString;
     if (req.body.searchTerm !== "") {
-      const searchValue = [req.body.search_term.toLowerCase(), `%${req.body.search_term.toLowerCase()}%`];
-      let queryString;
-      if (searchValue !== '') {
-        queryString =
-        `
-        SELECT *
-        FROM restaurants
-        WHERE levenshtein(lower(restaurants.name), $1) <= 3
-        OR levenshtein(lower(restaurants.type), $1) <= 3
-        OR lower(restaurants.name) LIKE $2
-        `;
-      } else {
-        queryString =
-        `
-        SELECT * FROM restaurants
-        `;
-      }
-      db.query(queryString, searchValue)
-        .then(resultSet => {
-          data.restaurants = resultSet.rows;
-          data.apiKey = GOOGLE_API_KEY;
-          data.addresses = [];
-          console.log(data.restaurants[0]);
-          for (row of resultSet.rows) {
-            data.addresses.push(row.location);
-          }
-          console.log(data.addresses);
-          res.render('browse', data);
-        })
-        .catch(err => console.error(err));
+      queryString =
+      `
+     SELECT *
+      FROM restaurants
+      WHERE levenshtein(lower(restaurants.name), $1) <= 3
+      OR levenshtein(lower(restaurants.type), $1) <= 3
+      OR lower(restaurants.name) LIKE $2
+      `;
+    } else {
+      queryString = 'SELECT * FROM restaurants';
     }
-    // const googleSearchQuery = searchQuery.replace(/ /g, '+');
-    // const apiKey = process.env.MAPS_API_KEY;
+
+    db.query(queryString, searchValue)
+      .then(resultSet => {
+        data.restaurants = resultSet.rows;
+        res.render('browse', data);
+      })
+      .catch(err => console.error(err));
+
   });
 
   return router;
