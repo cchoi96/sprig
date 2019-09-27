@@ -102,7 +102,7 @@ module.exports = (db) => {
             .query(userPhoneNumberQuery, queryParams)
             .then(resultSet => {
               let destination = `+1${resultSet.rows[0].phone_number}`;
-              console.log(`env phone number: ${phoneNumber}`);
+              console.log(destination);
               // `+1${resultSet.rows[0].phoneNumber}`
               client.messages.create({
                 body: `Your order is complete!`,
