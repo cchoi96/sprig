@@ -126,14 +126,14 @@ module.exports = (db) => {
         user: req.session.user_id,
         email: req.session.email
       };
-    const getOrders = `SELECT orders.id, json_agg(json_build_object('name', menu_items.name, 'quantity', order_items.quantity)) as "items", orders.order_status as "status"
+    const getOrders = `SELECT orders.id, restaurants.image_url, json_agg(json_build_object('name', menu_items.name, 'quantity', order_items.quantity)) as "items", orders.order_status as "status"
                                 FROM restaurants
                                 JOIN orders on orders.restaurant_id = restaurants.id
                                 JOIN order_items ON order_items.order_id = orders.id
                                 JOIN menu_items ON menu_items.id = order_items.menu_item_id
                                 WHERE restaurants.owner_id = $1
                                 AND order_items.quantity > 0
-                                GROUP BY orders.id
+                                GROUP BY orders.id, restaurants.image_url
                                 ORDER BY orders.id DESC`;
 
     const values = [req.session.user_id];
@@ -142,6 +142,8 @@ module.exports = (db) => {
       .query(getOrders, values)
       .then(orders => {
         data.orders = orders.rows;
+        data.image_url = orders.rows[0].image_url;
+        req.session.image_url = orders.rows[0].image_url;
         res.render('restaurant', data);
       })
   });

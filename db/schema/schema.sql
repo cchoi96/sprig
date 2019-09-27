@@ -28,7 +28,7 @@ CREATE TABLE restaurants (
   email VARCHAR(255) NOT NULL,
   active BOOLEAN NOT NULL DEFAULT TRUE,
   description TEXT,
-  image_url VARCHAR(255),
+  image_url VARCHAR(255) DEFAULT 'http://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
   website_url VARCHAR(255)
 );
 
