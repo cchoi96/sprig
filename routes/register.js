@@ -43,6 +43,7 @@ module.exports = (db) => {
       const userId = helpers.generateRandomId();
       const password = bcrypt.hashSync(req.body.password, 10);
       const defaultImage = req.body.image_url ? req.body.image_url : 'https://cdn.onlinewebfonts.com/svg/img_365985.png';
+      req.session.image_url = defaultImage;
 
       // Sanitizing inputs
       const queryEmail = 'SELECT * FROM users WHERE email = $1';
@@ -70,6 +71,7 @@ module.exports = (db) => {
             data.user = response.name;
             req.session.user_id = newUser.rows[0].id;
             data.email = response.email;
+            data.image_url = defaultImage;
             res.render('home', data);
           }
         })

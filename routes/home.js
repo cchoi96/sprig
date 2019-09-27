@@ -28,6 +28,7 @@ module.exports = (db) => {
         let response = user.rows[0];
         data.user = response.name;
         data.email = response.email;
+        data.image_url = req.session.image_url;
         res.render('home', data);
       })
       .catch(err => {
@@ -63,6 +64,7 @@ module.exports = (db) => {
           data.restaurants = resultSet.rows;
           data.apiKey = GOOGLE_API_KEY;
           data.addresses = [];
+          data.image_url = req.session.image_url;
           console.log(data.restaurants[0]);
           for (row of resultSet.rows) {
             data.addresses.push(row.location);

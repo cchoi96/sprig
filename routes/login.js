@@ -62,9 +62,11 @@ module.exports = (db) => {
           if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
             req.session.user_id = response.id;
             req.session.email = response.email;
+            req.session.image_url = response.image_url;
             data.user = response.name;
             data.email = response.email;
             data.error.loginError = false;
+            data.image_url = response.image_url;
             if (response.owns_restaurant === false) {
               res.redirect('/browse');
             } else {

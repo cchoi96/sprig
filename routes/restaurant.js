@@ -22,6 +22,7 @@ module.exports = (db) => {
     };
     data.email = req.session.email;
     data.user = req.session.user_id;
+    data.image_url = req.session.image_url;
     const findUser = `SELECT customer_id FROM orders
                       WHERE orders.id = $1`;
     const findUserValues = [req.body.orderId];

@@ -14,7 +14,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   phone_number VARCHAR(50) NOT NULL,
   -- optional image
-  image_url VARCHAR(255),
+  image_url VARCHAR(255) DEFAULT 'http://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png',
   owns_restaurant BOOLEAN DEFAULT FALSE
 );
 

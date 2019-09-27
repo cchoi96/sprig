@@ -18,6 +18,7 @@ module.exports = (db) => {
     let data = {
       user: req.session.user_id,
       email: req.session.email,
+      image_url: req.session.image_url,
       orders: ''
     };
     const getOrders = `SELECT orders.id, json_agg(json_build_object('name', menu_items.name, 'quantity', order_items.quantity)) as "items", orders.order_status as "status"
