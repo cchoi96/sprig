@@ -5,6 +5,7 @@ const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const smsSource = `+1${process.env.TWILIO_PHONE_NUMBER}`;
+const destination = ``
 const client = require('twilio')(accountSid, authToken);
 
 // const { generateRandomSMSId } = require('../public/scripts/helpers');
@@ -65,14 +66,19 @@ const client = require('twilio')(accountSid, authToken);
             let orderId = insertedOrderData[0].rows[0].order_id;
             let queryString =
             `
-            SELECT menu_items.name, order_items.quantity, order_items.order_id
+            SELECT menu_items.name, order_items.quantity, order_items.order_id, users.phone_number
             FROM order_items
             JOIN menu_items ON order_items.menu_item_id = menu_items.id
+            JOIN orders ON order_items.order_id = orders.id
+            JOIN users ON orders.customer_id = users.id
             WHERE order_items.order_id = $1
             `;
+
             let queryParams = [orderId];
             db.query(queryString, queryParams)
               .then(resultSet => {
+                let destination = `+1${resultSet.rows[0].phone_number}`
+                console.log(destination);
                 let outgoingMessage = `New order details:\n=================\n`;
                 outgoingMessage += `Order #${resultSet.rows[0].order_id}:\n`
                 for (row of resultSet.rows) {
@@ -82,7 +88,7 @@ const client = require('twilio')(accountSid, authToken);
                 client.messages.create({
                   body: outgoingMessage,
                   from: smsSource,
-                  to: `+17788469842`
+                  to: destination
                 })
                 .then(message => message.sid)
                 .catch(err => console.error(err));
