@@ -60,6 +60,7 @@ module.exports = (db) => {
   // @ desc   Render browse page
   router.get('/', (req, res) => {
     data.email = req.session.email;
+    console.log(req.session.email);
     data.user = req.session.user_id;
     data.apiKey = `AIzaSyAmULEGIDZktxhRsLU6-DH4hrsiz4jiayQ`;
     const query = `SELECT * FROM restaurants`;

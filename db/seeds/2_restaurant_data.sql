@@ -7,7 +7,7 @@ VALUES
   'Greasy Burger Joint',
   '1212 Dufferin St.',
   'Diner',
-  6476378535,
+  7788469842,
   'greasy@burgers.net',
   '/assets/restaurant-img/burger.jpg'
 ),
@@ -16,7 +16,7 @@ VALUES
   'Santino Pizza',
   '235 Spadina Ave.',
   'Italian',
-  6476378535,
+  7788469842,
   'santino@pizza.net',
   '/assets/restaurant-img/pizza.jpg'
 ),
@@ -25,7 +25,7 @@ VALUES
   'Eddy the Eagle Barbeque',
   '154 King St. W',
   'Barbeque',
-  6476378535,
+  7788469842,
   'eddy@eaglebbq.net',
   '/assets/restaurant-img/barbeque.jpg'
 ),
@@ -34,7 +34,7 @@ VALUES
   'Hokkaido Classic Sushi',
   '330 Roncesvalles Ave',
   'Japanese',
-  6476378535,
+  7788469842,
   'orders@hokkaidosushi.com',
   '/assets/restaurant-img/sushi.jpg'
 ),
@@ -43,7 +43,7 @@ VALUES
   'Sinistro''s Coffee',
   '22 Portland St.',
   'Coffee',
-  6476378535,
+  7788469842,
   'john@sinistro.com',
   '/assets/restaurant-img/coffee.jpg'
 );

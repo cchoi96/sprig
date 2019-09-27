@@ -65,6 +65,7 @@ module.exports = (db) => {
             req.session.image_url = response.image_url;
             data.user = response.name;
             data.email = response.email;
+            console.log(response.email);
             data.error.loginError = false;
             data.image_url = response.image_url;
             if (response.owns_restaurant === false) {

@@ -63,13 +63,13 @@ module.exports = (db) => {
           // if there's no user by that name, render the register page with an error message:
           if (newUser === null) {
             data.error.registerError = true;
-            console.log(data);
             res.render('register', data);
           } else {
             // assign the data object the user, render the home page with the data:
             let response = newUser.rows[0];
             data.user = response.name;
             req.session.user_id = newUser.rows[0].id;
+            req.session.email = newUser.rows[0].email;
             data.email = response.email;
             data.image_url = defaultImage;
             res.render('home', data);
