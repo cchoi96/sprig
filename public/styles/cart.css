@@ -40,7 +40,6 @@ main h1 {
   border-top: 2px solid #68d391;
   margin-top: 40px;
   padding-top: 10px;
-
 }
 
 .finalTotal {
@@ -54,7 +53,8 @@ main h1 {
   margin: 0 auto;
 }
 
-#form button, #checkout button {
+#form button,
+#checkout button {
   border: 1px solid #68d391;
   border-radius: 5px;
   font-size: 1.2em;
@@ -66,22 +66,25 @@ main h1 {
   margin-top: 5px;
 }
 
-#form button:hover, #form a:hover, #checkout button:hover  {
+#form button:hover,
+#form a:hover,
+#checkout button:hover {
   cursor: pointer;
   color: #f8f9fa;
   background-color: #68d391;
 }
 
 #form a {
-  overflow:auto;
-  display:block;
+  overflow: auto;
+  display: block;
   text-decoration: none;
   color: #68d391;
 }
 
 #placeOrder {
-  display: none;
-  width: 160px;
+  /* Remove comment for Google Pay */
+  /* display: none; */
+  width: 150px;
 }
 
 #checkout {

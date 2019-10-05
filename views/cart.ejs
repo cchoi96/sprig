@@ -1,97 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="/styles/cart.css" rel="stylesheet" type="text/css" />
+    <title>Cart</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href='/styles/cart.css' rel='stylesheet' type='text/css'>
-  <title>Cart</title>
-</head>
-
-<body>
-  <!-- Setting Order Info to set to local storage -->
-  <div id='restaurantName' style="display: none"><%= orderInfo.restaurantName %></div>
-  <% include partials/_header %>
-
-  <% for (let i = 0; i < orderInfo.item.length; i++){ %>
-  <!-- If the quantity of the order is greater than 0, outputs it as HTML -->
-  <% if (orderInfo.quantity[i] > 0) { %>
-  <li style="display: none;">
-    <p class='order-items'><%= orderInfo.item[i] %></p>
-    <p class='price-items'><%= orderInfo.cost[i] %></p>
-    <p class='quantity-items'><%= orderInfo.quantity[i] %></p>
-  </li>
-  <% } %>
-
-  <% } %>
-
-  <main>
-    <h1>CART</h1>
-    <!-- Takes the order information and passes it into /cart -->
-    <form method='POST' action='/cart' id='form'>
-      <input type='hidden' name='orderData' value='<%= JSON.stringify(orderInfo) %>' />
-      <div class='orderData'></div>
-      <div id='cart-buttons'>
-        <button><a href="/browse">Get More Food</a></button>
-        <button id='placeOrder' type='submit'>Place Order</button>
-      </div>
-    </form>
-    <div id='checkout'>
-      <button id='buyButton'>Pay</button>
+  <body>
+    <!-- Setting Order Info to set to local storage -->
+    <div id="restaurantName" style="display: none">
+      <%= orderInfo.restaurantName %>
     </div>
-  </main>
-  <% include partials/_footer.ejs %>
-</body>
+    <% include partials/_header %> <% for (let i = 0; i < orderInfo.item.length;
+    i++){ %>
+    <!-- If the quantity of the order is greater than 0, outputs it as HTML -->
+    <% if (orderInfo.quantity[i] > 0) { %>
+    <li style="display: none;">
+      <p class="order-items"><%= orderInfo.item[i] %></p>
+      <p class="price-items"><%= orderInfo.cost[i] %></p>
+      <p class="quantity-items"><%= orderInfo.quantity[i] %></p>
+    </li>
+    <% } %> <% } %>
 
-<!-- jQuery -->
-<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-<!-- Order Rendering Script -->
-<script>
-  let restaurantName = document.getElementById('restaurantName').innerHTML;
-  let orderItems = document.getElementsByClassName('order-items');
-  let prices = document.getElementsByClassName('price-items');
-  let quantities = document.getElementsByClassName('quantity-items');
-  let cartInfo = document.getElementById('form');
+    <main>
+      <h1>CART</h1>
+      <!-- Takes the order information and passes it into /cart -->
+      <form method="POST" action="/cart" id="form">
+        <input
+          type="hidden"
+          name="orderData"
+          value="<%= JSON.stringify(orderInfo) %>"
+        />
+        <div class="orderData"></div>
+        <div id="cart-buttons">
+          <button><a href="/browse">Get More Food</a></button>
+          <button id="placeOrder" type="submit">Place Order</button>
+        </div>
+      </form>
+      <!-- Google Pay Implementation, took it out because Heroku will not support it for some reason -->
+      <!-- <div id="checkout">
+        <button id="buyButton">Pay</button>
+      </div> -->
+    </main>
+    <% include partials/_footer.ejs %>
+  </body>
 
+  <!-- jQuery -->
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <!-- Order Rendering Script -->
+  <script>
+    let restaurantName = document.getElementById("restaurantName").innerHTML;
+    let orderItems = document.getElementsByClassName("order-items");
+    let prices = document.getElementsByClassName("price-items");
+    let quantities = document.getElementsByClassName("quantity-items");
+    let cartInfo = document.getElementById("form");
 
-  // Checks if sessionStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
-  if (!sessionStorage.orderObj) {
-    let orderObj = {};
-    orderObj[restaurantName] = {};
-    for (let i = 0; i < orderItems.length; i++) {
-      orderObj[restaurantName][orderItems[i].innerHTML] = {
-        price: prices[i].innerHTML,
-        quantity: quantities[i].innerHTML
-      };
-      sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
+    // Checks if sessionStorage exists, if not, creates it. Otherwise, it updates it with the new order items.
+    if (!sessionStorage.orderObj) {
+      let orderObj = {};
+      orderObj[restaurantName] = {};
+      for (let i = 0; i < orderItems.length; i++) {
+        orderObj[restaurantName][orderItems[i].innerHTML] = {
+          price: prices[i].innerHTML,
+          quantity: quantities[i].innerHTML
+        };
+        sessionStorage.setItem("orderObj", JSON.stringify(orderObj));
+      }
+    } else {
+      let orderObj = JSON.parse(sessionStorage.orderObj);
+      orderObj[restaurantName] = {};
+      for (let i = 0; i < orderItems.length; i++) {
+        orderObj[restaurantName][orderItems[i].innerHTML] = {
+          price: prices[i].innerHTML,
+          quantity: quantities[i].innerHTML
+        };
+      }
+      sessionStorage.setItem("orderObj", JSON.stringify(orderObj));
     }
-  } else {
-    let orderObj = JSON.parse(sessionStorage.orderObj);
-    orderObj[restaurantName] = {};
-    for (let i = 0; i < orderItems.length; i++) {
-      orderObj[restaurantName][orderItems[i].innerHTML] = {
-        price: prices[i].innerHTML,
-        quantity: quantities[i].innerHTML
-      };
-    }
-    sessionStorage.setItem('orderObj', JSON.stringify(orderObj));
-  }
 
-  // Setting the innerHTML for the cart page
-  // Creating an array of keys for each layer of the object, then rendering to screen
-  let combinedOrder = JSON.parse(sessionStorage.orderObj);
-  let combinedOrderKeys = Object.keys(combinedOrder);
-  let grandTotal = 0;
-  for (let key of combinedOrderKeys) {
-    // Checks if the combinedOrder restaurant has any orders at all, and if so, renders them to the page
-    if (!jQuery.isEmptyObject(combinedOrder[key])) {
-      let total = 0;
-      $('.orderData').append(`<h2>${key}</h2>`);
-      $('.orderData').append(`<ul>`)
-      let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
-      for (let restaurantKey of combinedRestaurantKeys) {
-        $('.orderData').append(`
+    // Setting the innerHTML for the cart page
+    // Creating an array of keys for each layer of the object, then rendering to screen
+    let combinedOrder = JSON.parse(sessionStorage.orderObj);
+    let combinedOrderKeys = Object.keys(combinedOrder);
+    let grandTotal = 0;
+    for (let key of combinedOrderKeys) {
+      // Checks if the combinedOrder restaurant has any orders at all, and if so, renders them to the page
+      if (!jQuery.isEmptyObject(combinedOrder[key])) {
+        let total = 0;
+        $(".orderData").append(`<h2>${key}</h2>`);
+        $(".orderData").append(`<ul>`);
+        let combinedRestaurantKeys = Object.keys(combinedOrder[key]);
+        for (let restaurantKey of combinedRestaurantKeys) {
+          $(".orderData").append(`
         <li>
           <div class='orderItem'>
             <h4 class='quantity'>${combinedOrder[key][restaurantKey].quantity}</h4>
@@ -99,10 +101,12 @@
             <p class='item-price'>${combinedOrder[key][restaurantKey].price}</p>
           </div>
         </li>`);
-        total += Number(combinedOrder[key][restaurantKey].price * combinedOrder[key]
-        [restaurantKey].quantity);
-      }
-      $('.orderData').append(`
+          total += Number(
+            combinedOrder[key][restaurantKey].price *
+              combinedOrder[key][restaurantKey].quantity
+          );
+        }
+        $(".orderData").append(`
         <li class='total subtotal'>
           Subtotal: ${total.toFixed(2)}
         </li>
@@ -112,29 +116,31 @@
         <li class='total finalTotal'>
           Total: ${(total * 1.13).toFixed(2)}
         </li>`);
-      $('.orderData').append('</ul>');
-      grandTotal += total;
+        $(".orderData").append("</ul>");
+        grandTotal += total;
+      }
     }
-  }
 
-  $('.orderData').append(`
+    $(".orderData").append(`
     <div id='grandTotal' style='visibility: hidden'>
       ${(grandTotal * 1.13).toFixed(2)}
     </div>
     <div id='grandTax' style='visibility: hidden'>
       ${(grandTotal * 0.13).toFixed(2)}
     </div>
-      `)
+      `);
 
-  // Sends info of the order to the confirmation page
-  $('.orderData').append(`<input type='hidden' name='orderInfo' value='${JSON.stringify(combinedOrder)}'/>`);
+    // Sends info of the order to the confirmation page
+    $(".orderData").append(
+      `<input type='hidden' name='orderInfo' value='${JSON.stringify(
+        combinedOrder
+      )}'/>`
+    );
 
-  // Clears sessionStorage once it is submitted
-  $('.orderData').submit(() => {
-    sessionStorage.clear();
-  });
-
-</script>
-<script src='/scripts/googlePay.js'></script>
-
+    // Clears sessionStorage once it is submitted
+    $(".orderData").submit(() => {
+      sessionStorage.clear();
+    });
+  </script>
+  <!-- <script src='/scripts/googlePay.js'></script> -->
 </html>
