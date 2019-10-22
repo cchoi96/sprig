@@ -33,6 +33,7 @@
           name="orderData"
           value="<%= JSON.stringify(orderInfo) %>"
         />
+        <!-- Div where orderData gets appended-->
         <div class="orderData"></div>
         <div id="cart-buttons">
           <button><a href="/browse">Get More Food</a></button>
@@ -82,6 +83,7 @@
 
     // Setting the innerHTML for the cart page
     // Creating an array of keys for each layer of the object, then rendering to screen
+    // combinedOrderKeys is all the restaurants in the order
     let combinedOrder = JSON.parse(sessionStorage.orderObj);
     let combinedOrderKeys = Object.keys(combinedOrder);
     let grandTotal = 0;
@@ -142,5 +144,6 @@
       sessionStorage.clear();
     });
   </script>
+  <!-- Google Pay API commented out due to limited requests -->
   <!-- <script src='/scripts/googlePay.js'></script> -->
 </html>

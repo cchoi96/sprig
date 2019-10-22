@@ -39,19 +39,20 @@ CREATE TABLE orders (
   time_created TIMESTAMP NOT NULL DEFAULT now(),
   picked_up BOOLEAN NOT NULL DEFAULT FALSE,
   time_fulfilled TIMESTAMP DEFAULT NULL,
-  -- order status can be only not accepted, pending, complete
-  order_status VARCHAR(15) NOT NULL DEFAULT 'not accepted',
+  -- order status can be 'not accepted', 'pending', 'complete'
+  order_status VARCHAR(15) NOT NULL DEFAULT 'not accepted'
+  -- future implementation
   -- optional notes to inform restaurant of anything specific/necessary to the order.
-  notes TEXT
+  -- notes TEXT
 );
 
 CREATE TABLE reviews (
   id SERIAL PRIMARY KEY,
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   reviewer_id VARCHAR(6) NOT NULL REFERENCES users(id),
-  rating INTEGER NOT NULL DEFAULT 5,
+  -- future implementation
+  -- rating INTEGER NOT NULL DEFAULT 5,
   time_created TIMESTAMP NOT NULL,
-  -- should just allow for a rating and no need to post a body if they just want to rate by stars
   body TEXT
 );
 
@@ -60,7 +61,6 @@ CREATE TABLE menu_items (
   restaurant_id INTEGER NOT NULL REFERENCES restaurants(id),
   name VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  -- do this in integers, convert on render
   cost_in_cents INTEGER NOT NULL,
   is_available BOOLEAN NOT NULL
 );
